@@ -11,6 +11,6 @@ class Pluralize extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Nedwors\Pluralize\Pluralize::class;
+        return \Nedwors\Pluralize\Pluralize\Pluralize::class;
     }
 }

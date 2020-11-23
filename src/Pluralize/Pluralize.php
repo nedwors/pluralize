@@ -1,16 +1,28 @@
 <?php
 
-namespace Nedwors\Pluralize;
+namespace Nedwors\Pluralize\Pluralize;
 
 use Closure;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Nedwors\Pluralize\Pluralize\Utilities\Counter;
+use Nedwors\Pluralize\Pluralize\Utilities\Fallback;
+use Nedwors\Pluralize\Pluralize\Utilities\Output;
+
 class Pluralize
 {
+    protected Counter $counter;
+    protected Fallback $fallback;
+    protected Output $output;
     protected string $item;
     protected ?int $count;
-    protected ?Closure $output = null;
-    protected $fallback = '-';
+    
+    public function __construct(Counter $counter, Fallback $fallback, Output $output)
+    {
+        $this->counter = $counter;
+        $this->fallback = $fallback;
+        $this->output = $output;
+    }
 
     public function this(string $item): self
     {
@@ -21,38 +33,23 @@ class Pluralize
 
     public function from($countable): self
     {
-        $this->count = $this->getCount($countable);
+        $this->count = $this->counter->calculate($countable);
 
         return $this;
     }
 
     public function as($as): self
     {
-        $this->output = $as ?? $this->output;
+        $this->output->set($as);
 
         return $this;
     }
 
     public function or($fallback): self
     {
-        $this->fallback = $fallback ?? $this->fallback;
+        $this->fallback->set($fallback);
 
         return $this;
-    }
-
-    protected function getCount($countable)
-    {
-        if (is_integer($countable)) {
-            return $countable;
-        }
-
-        if (is_array($countable)) {
-            return count($countable);
-        }
-
-        if ($countable instanceof Collection) {
-            return $countable->count();
-        }
     }
 
     protected function generate()
@@ -62,20 +59,12 @@ class Pluralize
 
     protected function getFallback()
     {
-        if (is_string($this->fallback)) {
-            return $this->fallback;
-        }
-
-        if (is_callable($this->fallback)) {
-            return call_user_func($this->fallback, $this->getPluralForm());
-        }
+        return $this->fallback->get($this->getPluralForm());
     }
 
     protected function getOutput()
     {
-        return $this->output
-            ? call_user_func($this->output, $this->getPluralForm(), $this->count)
-            : "{$this->count} {$this->getPluralForm()}";
+        return $this->output->get($this->getPluralForm(), $this->count);
     }
 
     protected function getPluralForm()
