@@ -6,8 +6,9 @@ use Closure;
 
 class Fallback
 {
-    protected $fallback = '-';
+    protected $fallback = null;
     protected $defaultFallback = 'pluralize.fallback';
+    protected $baseFallback = '-';
 
     public function set($fallback)
     {
@@ -21,13 +22,15 @@ class Fallback
 
     protected function generate($pluralString)
     {
+        if (is_callable($this->fallback)) {
+            return call_user_func($this->fallback, $pluralString);
+        }
+        
         if (is_string($this->fallback)) {
             return $this->getFromString($pluralString);
         }
 
-        if (is_callable($this->fallback)) {
-            return call_user_func($this->fallback, $pluralString);
-        }
+        return $this->getDefault($pluralString);
     }
 
     protected function getFromString($pluralString)
@@ -36,11 +39,16 @@ class Fallback
             return $this->resolveBinding($this->fallback, $pluralString);
         }
 
+        return $this->fallback;
+    }
+
+    protected function getDefault($pluralString)
+    {
         if (app()->has($this->defaultFallback)) {
             return $this->resolveBinding($this->defaultFallback, $pluralString);
         }
 
-        return $this->fallback;
+        return $this->baseFallback;
     }
 
     protected function resolveBinding($fallback, $pluralString)

@@ -42,4 +42,22 @@ class OutputTest extends TestCase
         $string = Pluralize::this('Book')->from(3)->as(fn($items, $count) => "There is|are $count $items, as there is|are $count $items")();
         $this->assertEquals('There are 3 Books, as there are 3 Books', $string);
     }
+
+    /** @test */
+    public function a_default_format_can_be_bound_in_the_service_container()
+    {
+        $this->app->bind('pluralize.output', fn() => fn($items, $count) =>  "There are $count $items");
+
+        $string = Pluralize::this('Book')->from(10)();
+        $this->assertEquals('There are 10 Books', $string);
+    }
+
+    /** @test */
+    public function a_default_format_is_overriden_by_the_declared_output()
+    {
+        $this->app->bind('pluralize.output', fn() => fn($items, $count) =>  "There are $count $items");
+
+        $string = Pluralize::this('Book')->from(10)->as(fn($items, $count) => "$items - $count")();
+        $this->assertEquals('Books - 10', $string);
+    }
 }
