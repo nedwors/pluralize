@@ -7,9 +7,9 @@ use Closure;
 class Output
 {
     protected ?Closure $output = null;
-    protected OutputParser $parser;
+    protected Parser $parser;
 
-    public function __construct(OutputParser $parser)
+    public function __construct(Parser $parser)
     {
         $this->parser = $parser;
     }

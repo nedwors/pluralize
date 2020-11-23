@@ -4,7 +4,7 @@ namespace Nedwors\Pluralize\Pluralize\Utilities;
 
 use Illuminate\Support\Str;
 
-class OutputParser
+class Parser
 {
     protected $regexPattern = '/[a-z]+\|[a-z]+/i';
     protected $string;

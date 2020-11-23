@@ -44,4 +44,35 @@ class FallbackTest extends TestCase
 
         $this->assertEquals('There are no Books', $string);
     }
+    
+    /** @test */
+    public function a_custom_fallback_can_be_bound_into_the_service_container()
+    {
+        $this->app->bind('pluralize.fallback', fn() => fn($items) => "No $items were counted");
+
+        $string = Pluralize::this('Book')->from(null)();
+        $this->assertEquals('No Books were counted', $string);
+    }
+    
+    /** @test */
+    public function a_custom_fallback_can_be_bound_into_the_service_container_that_takes_the_pluralString_as_a_parameter()
+    {
+        $this->app->bind('pluralize.fallback', fn() => "Nothing was counted");
+
+        $string = Pluralize::this('Book')->from(null)();
+        $this->assertEquals('Nothing was counted', $string);
+    }
+    
+    /** @test */
+    public function custom_fallbacks_can_be_resolved_at_time_of_access()
+    {
+        $this->app->bind('question-mark-fallback', fn() => "???");
+        $this->app->bind('ellipsis-fallback', fn() => "...");
+
+        $string = Pluralize::this('Book')->from(null)->or('question-mark-fallback')();
+        $this->assertEquals('???', $string);
+
+        $string = Pluralize::this('Book')->from(null)->or('ellipsis-fallback')();
+        $this->assertEquals('...', $string);
+    }
 }
