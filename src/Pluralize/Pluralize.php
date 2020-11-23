@@ -2,8 +2,6 @@
 
 namespace Nedwors\Pluralize\Pluralize;
 
-use Closure;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Nedwors\Pluralize\Pluralize\Utilities\Counter;
 use Nedwors\Pluralize\Pluralize\Utilities\Fallback;
