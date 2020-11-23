@@ -53,12 +53,24 @@ class Pluralize
 
     protected function fallback()
     {
-        return $this->fallback;
+        if (is_string($this->fallback)) {
+            return $this->fallback;
+        }
+
+        if (is_callable($this->fallback)) {
+            $fallback = $this->fallback;
+            return $fallback($this->getPluralForm());
+        }
     }
 
     protected function output()
     {
-        return $this->count . ' ' . Str::plural($this->item, $this->count);
+        return $this->count . ' ' . $this->getPluralForm();
+    }
+
+    protected function getPluralForm()
+    {
+        return Str::plural($this->item, $this->count);
     }
 
     public function __invoke()

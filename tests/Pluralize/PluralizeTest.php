@@ -69,4 +69,12 @@ class PluralizeTest extends TestCase
 
         $this->assertEquals('-', $string);
     }
+
+    /** @test */
+    public function the_fallback_can_be_a_closure_that_is_passed_a_pluralized_form_of_the_item()
+    {
+        $string = Pluralize::this('Book')->from(null)->or(fn($items) => "There are no $items");
+
+        $this->assertEquals('There are no Books', $string);
+    }
 }
