@@ -2,12 +2,14 @@
 
 namespace Nedwors\Pluralize;
 
+use Closure;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 class Pluralize
 {
     protected string $item;
     protected ?int $count;
+    protected ?Closure $output = null;
     protected $fallback = '-';
 
     public function this(string $item): self
@@ -20,6 +22,20 @@ class Pluralize
     public function from($countable): self
     {
         $this->count = $this->getCount($countable);
+
+        return $this;
+    }
+
+    public function as($as): self
+    {
+        $this->output = $as ?? $this->output;
+
+        return $this;
+    }
+
+    public function or($fallback): self
+    {
+        $this->fallback = $fallback ?? $this->fallback;
 
         return $this;
     }
@@ -39,33 +55,27 @@ class Pluralize
         }
     }
 
-    public function or($fallback)
-    {
-        $this->fallback = $fallback;
-
-        return $this->generate();
-    }
-
     protected function generate()
     {
-        return is_null($this->count) ? $this->fallback() : $this->output();
+        return is_null($this->count) ? $this->getFallback() : $this->getOutput();
     }
 
-    protected function fallback()
+    protected function getFallback()
     {
         if (is_string($this->fallback)) {
             return $this->fallback;
         }
 
         if (is_callable($this->fallback)) {
-            $fallback = $this->fallback;
-            return $fallback($this->getPluralForm());
+            return call_user_func($this->fallback, $this->getPluralForm());
         }
     }
 
-    protected function output()
+    protected function getOutput()
     {
-        return $this->count . ' ' . $this->getPluralForm();
+        return $this->output
+            ? call_user_func($this->output, $this->getPluralForm(), $this->count)
+            : "{$this->count} {$this->getPluralForm()}";
     }
 
     protected function getPluralForm()
@@ -74,6 +84,11 @@ class Pluralize
     }
 
     public function __invoke()
+    {
+        return $this->generate();
+    }
+
+    public function __toString()
     {
         return $this->generate();
     }
