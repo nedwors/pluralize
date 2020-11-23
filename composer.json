@@ -1,0 +1,54 @@
+{
+    "name": "nedwors/pluralize",
+    "description": "Easily and fluently pluralize content within your Laravel apps",
+    "keywords": [
+        "nedwors",
+        "pluralize"
+    ],
+    "homepage": "https://github.com/nedwors/pluralize",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Sam Rowden",
+            "email": "nedwors@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "^6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nedwors\\Pluralize\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Nedwors\\Pluralize\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Nedwors\\Pluralize\\PluralizeServiceProvider"
+            ],
+            "aliases": {
+                "Pluralize": "Nedwors\\Pluralize\\PluralizeFacade"
+            }
+        }
+    }
+}
