@@ -16,11 +16,25 @@ class CountingTest extends TestCase
     }
 
     /** @test */
+    public function zero_is_counted_correctly()
+    {
+        $this->assertEquals("0 Books", Pluralize::this('Book')->from(0));
+    }
+
+    /** @test */
     public function it_can_count_from_integers()
     {
         $count = rand(2, 100);
 
         $this->assertEquals("$count Books", Pluralize::this('Book')->from($count));
+    }
+
+    /** @test */
+    public function negative_numbers_will_be_counted()
+    {
+        $this->assertEquals("-1 Book", Pluralize::this('Book')->from(-1));
+
+        $this->assertEquals("-2 Books", Pluralize::this('Book')->from(-2));
     }
 
     /** @test */
