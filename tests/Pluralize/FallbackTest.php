@@ -2,7 +2,7 @@
 
 namespace Nedwors\Pluralize\Tests\Pluralize;
 
-use Nedwors\Pluralize\Facades\Pluralize;
+use Nedwors\Pluralize\Pluralize\Pluralize;
 use Orchestra\Testbench\TestCase;
 use Nedwors\Pluralize\PluralizeServiceProvider;
 
@@ -16,7 +16,7 @@ class FallbackTest extends TestCase
     /** @test */
     public function if_a_fallback_is_provided_this_is_used_if_the_count_is_null()
     {
-        $string = Pluralize::this('Book')->from(null)->or('-')();
+        $string = Pluralize::this('Book')->from(null)->or('-');
 
         $this->assertEquals('-', $string);
     }
@@ -24,7 +24,7 @@ class FallbackTest extends TestCase
     /** @test */
     public function if_a_fallback_is_provided_but_there_is_a_count_this_is_used()
     {
-        $string = Pluralize::this('Book')->from(0)->or('-')();
+        $string = Pluralize::this('Book')->from(0)->or('-');
 
         $this->assertEquals('0 Books', $string);
     }
@@ -32,7 +32,7 @@ class FallbackTest extends TestCase
     /** @test */
     public function it_gracefully_handles_no_provided_fallback()
     {
-        $string = Pluralize::this('Book')->from(null)();
+        $string = Pluralize::this('Book')->from(null);
 
         $this->assertEquals('-', $string);
     }
@@ -40,7 +40,7 @@ class FallbackTest extends TestCase
     /** @test */
     public function the_fallback_can_be_a_closure_that_is_passed_a_pluralized_form_of_the_item()
     {
-        $string = Pluralize::this('Book')->from(null)->or(fn($items) => "There are no $items")();
+        $string = Pluralize::this('Book')->from(null)->or(fn($items) => "There are no $items");
 
         $this->assertEquals('There are no Books', $string);
     }
@@ -50,7 +50,7 @@ class FallbackTest extends TestCase
     {
         $this->app->bind('pluralize.fallback', fn() => fn($items) => "No $items were counted");
 
-        $string = Pluralize::this('Book')->from(null)();
+        $string = Pluralize::this('Book')->from(null);
         $this->assertEquals('No Books were counted', $string);
     }
     
@@ -59,7 +59,7 @@ class FallbackTest extends TestCase
     {
         $this->app->bind('pluralize.fallback', fn() => "Nothing was counted");
 
-        $string = Pluralize::this('Book')->from(null)();
+        $string = Pluralize::this('Book')->from(null);
         $this->assertEquals('Nothing was counted', $string);
     }
     
@@ -69,10 +69,10 @@ class FallbackTest extends TestCase
         $this->app->bind('question-mark-fallback', fn() => "???");
         $this->app->bind('ellipsis-fallback', fn() => "...");
 
-        $string = Pluralize::this('Book')->from(null)->or('question-mark-fallback')();
+        $string = Pluralize::this('Book')->from(null)->or('question-mark-fallback');
         $this->assertEquals('???', $string);
 
-        $string = Pluralize::this('Book')->from(null)->or('ellipsis-fallback')();
+        $string = Pluralize::this('Book')->from(null)->or('ellipsis-fallback');
         $this->assertEquals('...', $string);
     }
 }

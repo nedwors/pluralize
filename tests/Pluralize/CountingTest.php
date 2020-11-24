@@ -2,7 +2,7 @@
 
 namespace Nedwors\Pluralize\Tests\Pluralize;
 
-use Nedwors\Pluralize\Facades\Pluralize;
+use Nedwors\Pluralize\Pluralize\Pluralize;
 use Orchestra\Testbench\TestCase;
 use Nedwors\Pluralize\PluralizeServiceProvider;
 
@@ -18,7 +18,7 @@ class CountingTest extends TestCase
     {
         $count = rand(2, 100);
 
-        $this->assertEquals("$count Books", Pluralize::this('Book')->from($count)());
+        $this->assertEquals("$count Books", Pluralize::this('Book')->from($count));
     }
 
     /** @test */
@@ -26,7 +26,7 @@ class CountingTest extends TestCase
     {
         $items = collect(range(2, rand(3, 100)))->toArray();
 
-        $this->assertEquals(count($items) . ' Books', Pluralize::this('Book')->from($items)());
+        $this->assertEquals(count($items) . ' Books', Pluralize::this('Book')->from($items));
     }
 
     /** @test */
@@ -34,6 +34,6 @@ class CountingTest extends TestCase
     {
         $items = collect(range(2, rand(3, 100)));
 
-        $this->assertEquals($items->count() . ' Books', Pluralize::this('Book')->from($items)());
+        $this->assertEquals($items->count() . ' Books', Pluralize::this('Book')->from($items));
     }
 }

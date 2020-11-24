@@ -6,11 +6,12 @@ class Display
 {
     protected ?string $item;
 
-    public function this(?string $item): self
+    public static function this(?string $item): self
     {
-        $this->item = $item;
+        $instance = app(self::class);
+        $instance->item = $item;
 
-        return $this;
+        return $instance;
     }
 
     public function as($as): self
