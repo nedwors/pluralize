@@ -75,13 +75,11 @@ class OutputTest extends TestCase
     /** @test */
     public function it_can_handle_pipe_delimited_synbols()
     {
-        $this->markTestIncomplete('Implement Symbol capabilities');
-
-        $string = Pluralize::this('Book')->from(1)->as(fn() => "&!|*-");
+        $string = Pluralize::this('Book')->from(1)->as(fn() => "&!|!-");
         $this->assertEquals('&!', $string);
 
-        $string = Pluralize::this('Book')->from(2)->as(fn() => "&!|*-");
-        $this->assertEquals('*-', $string);
+        $string = Pluralize::this('Book')->from(2)->as(fn() => "&!|!-");
+        $this->assertEquals('!-', $string);
     }
 
     /** @test */
