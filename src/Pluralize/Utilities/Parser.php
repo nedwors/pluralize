@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class Parser
 {
-    protected $regexPattern = '/[a-z]+\|[a-z]+/i';
+    protected $regexPattern = '/([a-z]|\d)+\|([a-z]|\d)+/i';
     protected $string;
     protected $count;
 
@@ -50,7 +50,7 @@ class Parser
 
     protected function findMatches()
     {
-        preg_match($this->regexPattern, $this->string, $matches);
-        return $matches;
+        preg_match_all($this->regexPattern, $this->string, $matches);
+        return $matches[0];
     }
 }

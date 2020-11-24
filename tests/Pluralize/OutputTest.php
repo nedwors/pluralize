@@ -44,6 +44,25 @@ class OutputTest extends TestCase
     }
 
     /** @test */
+    public function it_can_handle_complex_variations()
+    {
+        $string = Pluralize::this('Book')->from(1)->as(fn() => "Why|What would|do you do|want this");
+        $this->assertEquals('Why would you do this', $string);
+
+        $string = Pluralize::this('Book')->from(0)->as(fn() => "Why|What would|do you do|want this|friend?");
+        $this->assertEquals('What do you want friend?', $string);
+
+        $string = Pluralize::this('Book')->from(2)->as(fn() => "Why|What would|do you do|want this|friend?");
+        $this->assertEquals('What do you want friend?', $string);
+
+        $string = Pluralize::this('Book')->from(1)->as(fn($items, $count) => "Show me the $count|$items");
+        $this->assertEquals('Show me the 1', $string);
+
+        $string = Pluralize::this('Book')->from(2)->as(fn($items, $count) => "Show me the $count|$items");
+        $this->assertEquals('Show me the Books', $string);
+    }
+
+    /** @test */
     public function a_default_format_can_be_bound_in_the_service_container()
     {
         $this->app->bind('pluralize.output', fn() => fn($items, $count) =>  "There are $count $items");
