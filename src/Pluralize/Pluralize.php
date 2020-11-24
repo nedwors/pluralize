@@ -13,7 +13,7 @@ class Pluralize
     protected Fallback $fallback;
     protected Output $output;
     protected string $item;
-    protected ?int $count;
+    protected ?int $count = null;
     
     public function __construct(Counter $counter, Fallback $fallback, Output $output)
     {

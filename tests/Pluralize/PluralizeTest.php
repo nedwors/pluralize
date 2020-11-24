@@ -20,4 +20,12 @@ class PluralizeTest extends TestCase
 
         $this->assertEquals('2 Books', $string);
     }
+    
+    /** @test */
+    public function it_will_handle_no_count_being_passed()
+    {
+        $string = Pluralize::this('Method');
+
+        $this->assertEquals('-', $string);
+    }
 }
