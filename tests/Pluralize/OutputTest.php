@@ -44,22 +44,44 @@ class OutputTest extends TestCase
     }
 
     /** @test */
-    public function it_can_handle_complex_variations()
+    public function it_can_handle_different_delimited_strings()
     {
         $string = Pluralize::this('Book')->from(1)->as(fn() => "Why|What would|do you do|want this");
         $this->assertEquals('Why would you do this', $string);
 
-        $string = Pluralize::this('Book')->from(0)->as(fn() => "Why|What would|do you do|want this|friend?");
-        $this->assertEquals('What do you want friend?', $string);
+        $string = Pluralize::this('Book')->from(0)->as(fn() => "Why|What would|do you do|want this|friend");
+        $this->assertEquals('What do you want friend', $string);
 
-        $string = Pluralize::this('Book')->from(2)->as(fn() => "Why|What would|do you do|want this|friend?");
-        $this->assertEquals('What do you want friend?', $string);
+        $string = Pluralize::this('Book')->from(2)->as(fn() => "Why|What would|do you do|want this|friend");
+        $this->assertEquals('What do you want friend', $string);
+    }
 
+    /** @test */
+    public function it_can_handle_pipe_delimited_numbers()
+    {
         $string = Pluralize::this('Book')->from(1)->as(fn($items, $count) => "Show me the $count|$items");
         $this->assertEquals('Show me the 1', $string);
 
         $string = Pluralize::this('Book')->from(2)->as(fn($items, $count) => "Show me the $count|$items");
         $this->assertEquals('Show me the Books', $string);
+
+        $string = Pluralize::this('Book')->from(1)->as(fn() => "42|007");
+        $this->assertEquals('42', $string);
+
+        $string = Pluralize::this('Book')->from(2)->as(fn() => "42|007");
+        $this->assertEquals('007', $string);
+    }
+
+    /** @test */
+    public function it_can_handle_pipe_delimited_synbols()
+    {
+        $this->markTestIncomplete('Implement Symbol capabilities');
+
+        $string = Pluralize::this('Book')->from(1)->as(fn() => "&!|*-");
+        $this->assertEquals('&!', $string);
+
+        $string = Pluralize::this('Book')->from(2)->as(fn() => "&!|*-");
+        $this->assertEquals('*-', $string);
     }
 
     /** @test */

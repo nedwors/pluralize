@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class Parser
 {
-    protected $regexPattern = '/([a-z]|\d)+\|([a-z]|\d)+/i';
+    protected $regexPattern = "/(\S+)\|(\S+)/i";
     protected $string;
     protected $count;
 
@@ -34,8 +34,7 @@ class Parser
     {
         return collect($matches)
                 ->map(fn($match) => Str::replaceFirst('|', '\|', $match))
-                ->zip($this->getReplacements($matches))
-                ->toArray();
+                ->zip($this->getReplacements($matches));
     }
 
     protected function getReplacements($matches)
