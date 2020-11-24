@@ -2,6 +2,8 @@
 
 namespace Nedwors\Pluralize\Tests\Pluralize;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Nedwors\Pluralize\Pluralize\Pluralize;
 use Orchestra\Testbench\TestCase;
 use Nedwors\Pluralize\PluralizeServiceProvider;
@@ -35,5 +37,21 @@ class CountingTest extends TestCase
         $items = collect(range(2, rand(3, 100)));
 
         $this->assertEquals($items->count() . ' Books', Pluralize::this('Book')->from($items));
+    }
+
+    /** @test */
+    public function it_can_count_from_a_lengthAwarePaginator()
+    {
+        $items = new LengthAwarePaginator([1,2,3,4,5], 5, 5);
+
+        $this->assertEquals('5 Books', Pluralize::this('Book')->from($items));
+    }
+
+    /** @test */
+    public function it_can_count_from_a_paginator()
+    {
+        $items = new Paginator([1,2,3,4,5], 5);
+
+        $this->assertEquals('5 Books', Pluralize::this('Book')->from($items));
     }
 }
