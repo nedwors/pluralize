@@ -4,6 +4,9 @@ namespace Nedwors\Pluralize;
 
 use Illuminate\Support\ServiceProvider;
 use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
+use Nedwors\Pluralize\Pluralize\Pluralize;
+use Nedwors\Pluralize\Pluralize\Utilities\Container;
+use Nedwors\Pluralize\Pluralize\Utilities\Engine;
 use Nedwors\Pluralize\Pluralize\Utilities\Pluralization\LaravelStrPluralization;
 
 class PluralizeServiceProvider extends ServiceProvider
@@ -57,6 +60,9 @@ class PluralizeServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/pluralize.php', 'pluralize');
 
         $this->bindPluralizationEngine();
+
+        $this->app->singleton(Pluralize::class, fn() => new Pluralize(app(Engine::class)));
+        $this->app->singleton(Container::class, fn() => new Container());
     }
 
     protected function bindPluralizationEngine()

@@ -2,6 +2,7 @@
 
 namespace Nedwors\Pluralize\Tests\Pluralize;
 
+use Nedwors\Pluralize\Pluralize\Pluralize;
 use Orchestra\Testbench\TestCase;
 use Nedwors\Pluralize\PluralizeServiceProvider;
 
@@ -95,19 +96,19 @@ class HelperTest extends TestCase
     /** @test */
     public function fallback_bindings_can_be_used()
     {
-        $this->app->bind('pluralize.fallback', fn() => '-');
+        Pluralize::bind()->fallback('-');
 
         $string = pluralize('Item', null);
         $this->assertEquals('-', $string);
 
-        $this->app->bind('ellipsis', fn() => '...');
+        Pluralize::bind('ellipsis')->fallback('...');
 
         $string = pluralize('Item', null, 'ellipsis');
         $this->assertEquals('...', $string);
         $string = pluralize('Item', null)->or('ellipsis');
         $this->assertEquals('...', $string);
 
-        $this->app->bind('words', fn() => fn($items) => "No $items currently");
+        Pluralize::bind('words')->fallback(fn($items) => "No $items currently");
 
         $string = pluralize('Item', null, 'words');
         $this->assertEquals('No Items currently', $string);

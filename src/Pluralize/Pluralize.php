@@ -7,6 +7,7 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Nedwors\Pluralize\Pluralize\Utilities\Engine;
 use Closure;
+use Nedwors\Pluralize\Pluralize\Utilities\Container;
 
 /** @package Nedwors\Pluralize\Pluralize */
 class Pluralize
@@ -18,6 +19,11 @@ class Pluralize
     public function __construct(Engine $engine)
     {
         $this->engine = $engine;
+    }
+
+    public static function bind($key = 'default'): Container
+    {
+        return app(Container::class)->bind($key);
     }
 
     /**

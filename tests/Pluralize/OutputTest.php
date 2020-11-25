@@ -85,7 +85,7 @@ class OutputTest extends TestCase
     /** @test */
     public function a_default_format_can_be_bound_in_the_service_container()
     {
-        $this->app->bind('pluralize.output', fn() => fn($items, $count) =>  "There are $count $items");
+        Pluralize::bind()->output(fn($items, $count) =>  "There are $count $items");
 
         $string = Pluralize::this('Book')->from(10);
         $this->assertEquals('There are 10 Books', $string);

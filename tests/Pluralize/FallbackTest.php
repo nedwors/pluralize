@@ -46,28 +46,28 @@ class FallbackTest extends TestCase
     }
     
     /** @test */
-    public function a_custom_fallback_can_be_bound_into_the_service_container()
+    public function a_custom_default_fallback_can_be_bound_into_the_service_container()
     {
-        $this->app->bind('pluralize.fallback', fn() => fn($items) => "No $items were counted");
-
-        $string = Pluralize::this('Book')->from(null);
-        $this->assertEquals('No Books were counted', $string);
-    }
-    
-    /** @test */
-    public function a_custom_fallback_can_be_bound_into_the_service_container_that_takes_the_pluralString_as_a_parameter()
-    {
-        $this->app->bind('pluralize.fallback', fn() => "Nothing was counted");
+        Pluralize::bind()->fallback(fn() => "Nothing was counted");
 
         $string = Pluralize::this('Book')->from(null);
         $this->assertEquals('Nothing was counted', $string);
     }
     
     /** @test */
+    public function a_custom_default_fallback_can_be_bound_into_the_service_container_that_takes_the_pluralString_as_a_parameter()
+    {
+        Pluralize::bind()->fallback(fn($items) => "No $items were counted");
+
+        $string = Pluralize::this('Book')->from(null);
+        $this->assertEquals('No Books were counted', $string);
+    }
+    
+    /** @test */
     public function custom_fallbacks_can_be_resolved_at_time_of_access()
     {
-        $this->app->bind('question-mark-fallback', fn() => "???");
-        $this->app->bind('ellipsis-fallback', fn() => "...");
+        Pluralize::bind('question-mark-fallback')->fallback('???');
+        Pluralize::bind('ellipsis-fallback')->fallback('...');
 
         $string = Pluralize::this('Book')->from(null)->or('question-mark-fallback');
         $this->assertEquals('???', $string);

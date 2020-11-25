@@ -8,7 +8,7 @@ class Fallback
 {
     protected Container $container;
     protected $fallback = null;
-    protected $defaultFallback = 'pluralize.fallback';
+    protected $defaultFallback = 'default';
     protected $baseFallback = '-';
 
     public function __construct(Container $container)
@@ -23,7 +23,9 @@ class Fallback
 
     public function get($pluralString)
     {
-        return $this->generate($pluralString);
+        $result = $this->generate($pluralString);
+        $this->fallback = null;
+        return $result;
     }
 
     protected function generate($pluralString)
@@ -41,8 +43,8 @@ class Fallback
 
     protected function getFromString($pluralString)
     {
-        if ($this->container->has($this->fallback)) {
-            return $this->container->get($this->fallback, $pluralString);
+        if ($this->container->hasFallback($this->fallback)) {
+            return $this->resolveBinding($this->fallback, $pluralString);
         }
 
         return $this->fallback;
@@ -50,10 +52,22 @@ class Fallback
 
     protected function getDefault($pluralString)
     {
-        if ($this->container->has($this->defaultFallback)) {
-            return $this->container->get($this->defaultFallback, $pluralString);
+        if ($this->container->hasFallback($this->defaultFallback)) {
+            return $this->resolveBinding($this->defaultFallback, $pluralString);
+            
         }
 
         return $this->baseFallback;
+    }
+
+    protected function resolveBinding($binding, ...$params)
+    {
+        $concrete = $this->container->getFallback($binding);
+
+        if ($concrete instanceof Closure) {
+            return $concrete(...$params);
+        }
+
+        return $concrete;
     }
 }

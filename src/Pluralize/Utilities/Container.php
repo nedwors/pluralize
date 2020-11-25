@@ -2,50 +2,52 @@
 
 namespace Nedwors\Pluralize\Pluralize\Utilities;
 
-use Closure;
+use Illuminate\Support\Arr;
 
 class Container
 {
-    public function has($binding)
-    {
-        if ($this->serviceContainerHasBinding($binding)) {
-            return true;
-        }
+    protected $outputs = [];
+    protected $fallbacks = [];
+    protected $key = null;
 
-        return false;
+    public function bind($key = 'default'): self
+    {
+        $this->key = $key;
+
+        return $this;
     }
 
-    protected function serviceContainerHasBinding($binding)
+    public function output($binding): self
     {
-        return app()->has($binding);
+        $this->outputs[$this->key] = $binding;
+
+        return $this;
     }
 
-    public function get($binding, ...$params)
+    public function fallback($binding): self
     {
-        if ($this->serviceContainerHasBinding($binding)) {
-            return $this->resolveServiceContainerBinding($binding, ...$params);
-        }
+        $this->fallbacks[$this->key] = $binding;
+
+        return $this;
     }
 
-    protected function resolveBinding($binding, ...$params)
+    public function hasOutput($key)
     {
-        $concrete = app($binding);
-
-        if ($concrete instanceof Closure) {
-            return $concrete(...$params);
-        }
-
-        return $concrete;
+        return Arr::exists($this->outputs, $key);
     }
 
-    protected function resolveServiceContainerBinding($binding, ...$params)
+    public function getOutput($key)
     {
-        $concrete = app($binding);
+        return data_get($this->outputs, $key);
+    }
 
-        if ($concrete instanceof Closure) {
-            return $concrete(...$params);
-        }
+    public function hasFallback($key)
+    {
+        return Arr::exists($this->fallbacks, $key);
+    }
 
-        return $concrete;
+    public function getFallback($key)
+    {
+        return data_get($this->fallbacks, $key);
     }
 }
