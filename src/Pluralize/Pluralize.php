@@ -2,29 +2,31 @@
 
 namespace Nedwors\Pluralize\Pluralize;
 
-use Illuminate\Support\Str;
-use Nedwors\Pluralize\Pluralize\Contracts\PluralizationEngine;
-use Nedwors\Pluralize\Pluralize\Utilities\Counter;
-use Nedwors\Pluralize\Pluralize\Utilities\Fallback;
-use Nedwors\Pluralize\Pluralize\Utilities\Output;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Nedwors\Pluralize\Pluralize\Utilities\Engine;
+use Closure;
 
+/** @package Nedwors\Pluralize\Pluralize */
 class Pluralize
 {
-    protected Counter $counter;
-    protected Fallback $fallback;
-    protected Output $output;
-    protected PluralizationEngine $pluralizationEngine;
+    protected Engine $engine;
     protected string $item;
     protected ?int $count = null;
     
-    public function __construct(Counter $counter, Fallback $fallback, Output $output, PluralizationEngine $pluralizationEngine)
+    public function __construct(Engine $engine)
     {
-        $this->counter = $counter;
-        $this->fallback = $fallback;
-        $this->output = $output;
-        $this->pluralizationEngine = $pluralizationEngine;
+        $this->engine = $engine;
     }
 
+    /**
+     * Define the singular form of the word to be pluralized
+     * 
+     * @param string $item 
+     * @return Pluralize 
+     */
     public static function this(string $item): self
     {
         $instance = app(self::class);
@@ -33,23 +35,41 @@ class Pluralize
         return $instance;
     }
 
+    /**
+     * Define what should be counted
+     * 
+     * @param int|array|Collection|LengthAwarePaginator|Paginator $countable 
+     * @return Pluralize 
+     */
     public function from($countable): self
     {
-        $this->count = $this->counter->calculate($countable);
+        $this->count = $this->engine->counter()->calculate($countable);
 
         return $this;
     }
 
+    /**
+     * Define the format of the generated string
+     * 
+     * @param string|Closure $as 
+     * @return Pluralize 
+     */
     public function as($as): self
     {
-        $this->output->set($as);
+        $this->engine->output()->set($as);
 
         return $this;
     }
 
+    /**
+     * Define the format of the generated fallback string
+     * 
+     * @param string|Closure $fallback 
+     * @return Pluralize 
+     */
     public function or($fallback): self
     {
-        $this->fallback->set($fallback);
+        $this->engine->fallback()->set($fallback);
 
         return $this;
     }
@@ -61,17 +81,17 @@ class Pluralize
 
     protected function getFallback()
     {
-        return $this->fallback->get($this->getPluralForm());
+        return $this->engine->fallback()->get($this->getPluralForm());
     }
 
     protected function getOutput()
     {
-        return $this->output->get($this->getPluralForm(), $this->count);
+        return $this->engine->output()->get($this->getPluralForm(), $this->count);
     }
 
     protected function getPluralForm()
     {
-        return $this->pluralizationEngine->run($this->item, $this->count);
+        return $this->engine->pluralization()->run($this->item, $this->count);
     }
 
     public function __invoke()

@@ -3,9 +3,9 @@
 namespace Nedwors\Pluralize\Pluralize\Utilities\Pluralization;
 
 use Illuminate\Support\Str;
-use Nedwors\Pluralize\Pluralize\Contracts\PluralizationEngine;
+use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
 
-class LaravelStrEngine implements PluralizationEngine
+class LaravelStrEngine implements Pluralization
 {
     public function run(string $string, $count): string
     {

@@ -2,7 +2,7 @@
 
 namespace Nedwors\Pluralize\Pluralize\Contracts;
 
-interface PluralizationEngine
+interface Pluralization
 {
     public function run(string $string, $count): string;
 }

@@ -3,7 +3,7 @@
 namespace Nedwors\Pluralize;    
 
 use Illuminate\Support\ServiceProvider;
-use Nedwors\Pluralize\Pluralize\Contracts\PluralizationEngine;
+use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
 use Nedwors\Pluralize\Pluralize\Utilities\Pluralization\LaravelStrEngine;
 
 class PluralizeServiceProvider extends ServiceProvider
@@ -63,6 +63,6 @@ class PluralizeServiceProvider extends ServiceProvider
     {
         $engine = data_get(config('pluralize.drivers'), 'pluralization', LaravelStrEngine::class);
 
-        $this->app->bind(PluralizationEngine::class, $engine);
+        $this->app->bind(Pluralization::class, $engine);
     }
 }
