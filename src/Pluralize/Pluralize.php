@@ -2,16 +2,19 @@
 
 namespace Nedwors\Pluralize\Pluralize;
 
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Support\Collection;
-use Nedwors\Pluralize\Pluralize\Utilities\Engine;
 use Closure;
+use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
+use Nedwors\Pluralize\Pluralize\Utilities\Engine;
 use Nedwors\Pluralize\Pluralize\Utilities\Container;
+use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Nedwors\Pluralize\Pluralize\Utilities\Pluralization\LaravelStrPluralization;
 
 /** @package Nedwors\Pluralize\Pluralize */
 class Pluralize
 {
+    protected $plurilizationDriver = LaravelStrPluralization::class;
     protected Engine $engine;
     protected string $item;
     protected ?int $count = null;
@@ -19,6 +22,14 @@ class Pluralize
     public function __construct(Engine $engine)
     {
         $this->engine = $engine;
+    }
+
+    public static function driver($driver): self
+    {
+        $instance = app(self::class);
+        $instance->plurilizationDriver = $driver;
+
+        return $instance;
     }
 
     public static function bind($key = 'default'): Container
@@ -96,7 +107,12 @@ class Pluralize
 
     protected function getPluralForm()
     {
-        return $this->engine->pluralization()->run($this->item, $this->count);
+        return $this->pluralization()->run($this->item, $this->count);
+    }
+
+    protected function pluralization(): Pluralization
+    {
+        return app($this->plurilizationDriver);
     }
 
     public function __invoke()
