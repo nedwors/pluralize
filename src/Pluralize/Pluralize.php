@@ -2,7 +2,6 @@
 
 namespace Nedwors\Pluralize\Pluralize;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Collection;

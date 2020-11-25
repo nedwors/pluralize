@@ -47,7 +47,7 @@ class Output
     protected function getFromString($pluralString, $count)
     {
         if (app()->has($this->output)) {
-            return $this->resolveBinding($this->output, $pluralString, $count);
+            return $this->resolveBinding($this->output, [$pluralString, $count]);
         }
     }
 
