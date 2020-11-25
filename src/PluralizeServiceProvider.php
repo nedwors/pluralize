@@ -1,8 +1,10 @@
 <?php
 
-namespace Nedwors\Pluralize;
+namespace Nedwors\Pluralize;    
 
 use Illuminate\Support\ServiceProvider;
+use Nedwors\Pluralize\Pluralize\Contracts\PluralizationEngine;
+use Nedwors\Pluralize\Pluralize\Utilities\Pluralization\LaravelStrEngine;
 
 class PluralizeServiceProvider extends ServiceProvider
 {
@@ -23,7 +25,7 @@ class PluralizeServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('pluralize.php'),
+                __DIR__.'/../config/pluralize.php' => config_path('pluralize.php'),
             ], 'config');
 
             // Publishing the views.
@@ -52,7 +54,15 @@ class PluralizeServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'pluralize');
+        $this->mergeConfigFrom(__DIR__.'/../config/pluralize.php', 'pluralize');
 
+        $this->bindPluralizationEngine();
+    }
+
+    protected function bindPluralizationEngine()
+    {
+        $engine = data_get(config('pluralize.drivers'), 'pluralization', LaravelStrEngine::class);
+
+        $this->app->bind(PluralizationEngine::class, $engine);
     }
 }

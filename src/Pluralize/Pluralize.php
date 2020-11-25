@@ -3,6 +3,7 @@
 namespace Nedwors\Pluralize\Pluralize;
 
 use Illuminate\Support\Str;
+use Nedwors\Pluralize\Pluralize\Contracts\PluralizationEngine;
 use Nedwors\Pluralize\Pluralize\Utilities\Counter;
 use Nedwors\Pluralize\Pluralize\Utilities\Fallback;
 use Nedwors\Pluralize\Pluralize\Utilities\Output;
@@ -12,14 +13,16 @@ class Pluralize
     protected Counter $counter;
     protected Fallback $fallback;
     protected Output $output;
+    protected PluralizationEngine $pluralizationEngine;
     protected string $item;
     protected ?int $count = null;
     
-    public function __construct(Counter $counter, Fallback $fallback, Output $output)
+    public function __construct(Counter $counter, Fallback $fallback, Output $output, PluralizationEngine $pluralizationEngine)
     {
         $this->counter = $counter;
         $this->fallback = $fallback;
         $this->output = $output;
+        $this->pluralizationEngine = $pluralizationEngine;
     }
 
     public static function this(string $item): self
@@ -68,7 +71,7 @@ class Pluralize
 
     protected function getPluralForm()
     {
-        return Str::plural($this->item, $this->count);
+        return $this->pluralizationEngine->run($this->item, $this->count);
     }
 
     public function __invoke()
