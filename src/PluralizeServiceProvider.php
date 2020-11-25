@@ -4,7 +4,7 @@ namespace Nedwors\Pluralize;
 
 use Illuminate\Support\ServiceProvider;
 use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
-use Nedwors\Pluralize\Pluralize\Utilities\Pluralization\LaravelStrEngine;
+use Nedwors\Pluralize\Pluralize\Utilities\Pluralization\LaravelStrPluralization;
 
 class PluralizeServiceProvider extends ServiceProvider
 {
@@ -61,7 +61,7 @@ class PluralizeServiceProvider extends ServiceProvider
 
     protected function bindPluralizationEngine()
     {
-        $engine = data_get(config('pluralize.drivers'), 'pluralization', LaravelStrEngine::class);
+        $engine = data_get(config('pluralize.drivers'), 'pluralization', LaravelStrPluralization::class);
 
         $this->app->bind(Pluralization::class, $engine);
     }

@@ -1,11 +1,11 @@
 <?php
 
-use Nedwors\Pluralize\Pluralize\Utilities\Pluralization\LaravelStrEngine;
+use Nedwors\Pluralize\Pluralize\Utilities\Pluralization\LaravelStrPluralization;
 
 return [
 
     'drivers' => [
-        'pluralization' => LaravelStrEngine::class
+        'pluralization' => LaravelStrPluralization::class
     ]
 
 ];
