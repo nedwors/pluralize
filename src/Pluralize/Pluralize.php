@@ -111,22 +111,17 @@ class Pluralize
 
     protected function getFallback()
     {
-        return $this->engine->fallback()->get($this->getPluralForm(), $this->singular);
+        return $this->engine->fallback()->get($this->pluralized(), $this->singular);
     }
 
     protected function getOutput()
     {
-        return $this->engine->output()->get($this->getPluralForm(), $this->count, $this->singular);
+        return $this->engine->output()->get($this->pluralized(), $this->count, $this->singular);
     }
 
-    protected function getPluralForm()
+    protected function pluralized()
     {
-        return $this->pluralization()->run($this->singular, $this->count);
-    }
-
-    protected function pluralization(): Pluralization
-    {
-        return app($this->plurilizationDriver);
+        return $this->engine->pluralization($this->plurilizationDriver)->run($this->singular, $this->count);
     }
 
     protected function restartEngine()
