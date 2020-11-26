@@ -69,7 +69,7 @@ class PluralizeServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/pluralize.php', 'pluralize');
 
         $this->app->singleton(Container::class, fn() => new Container(app(Bindings::class), app(Bindings::class)));
-        $this->app->singleton(Pluralize::class, fn() => new Pluralize(app(Engine::class), LaravelStrPluralization::class));
+        $this->app->singleton(Pluralize::class, fn() => new Pluralize(LaravelStrPluralization::class));
 
         $this->app->bind(Output::class, fn() => new Output(app(Container::class)->outputs, app(Parser::class)));
         $this->app->bind(Fallback::class, fn() => new Fallback(app(Container::class)->fallbacks));

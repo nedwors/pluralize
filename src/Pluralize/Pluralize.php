@@ -2,25 +2,25 @@
 
 namespace Nedwors\Pluralize\Pluralize;
 
-use Closure;
-use Illuminate\Support\Collection;
-use Illuminate\Contracts\Pagination\Paginator;
-use Nedwors\Pluralize\Pluralize\Utilities\Engine;
 use Nedwors\Pluralize\Pluralize\Utilities\Container\Container;
-use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
+use Nedwors\Pluralize\Pluralize\Utilities\Engine;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Closure;
 
 /** @package Nedwors\Pluralize\Pluralize */
 class Pluralize
 {
     protected $plurilizationDriver;
     protected Engine $engine;
-    protected string $item;
+    protected string $singular;
     protected ?int $count = null;
     
-    public function __construct(Engine $engine, $driver)
+    public function __construct($driver)
     {
-        $this->engine = $engine;
+        $this->restartEngine();
         $this->plurilizationDriver = $driver;
     }
 
@@ -55,10 +55,10 @@ class Pluralize
      * @param string $item 
      * @return Pluralize 
      */
-    public static function this(string $item): self
+    public static function this(string $singular): self
     {
         $instance = app(self::class);
-        $instance->item = $item;
+        $instance->singular = $singular;
 
         return $instance;
     }
@@ -104,27 +104,34 @@ class Pluralize
 
     protected function generate()
     {
-        return is_null($this->count) ? $this->getFallback() : $this->getOutput();
+        $string = is_null($this->count) ? $this->getFallback() : $this->getOutput();
+        $this->restartEngine();
+        return $string;
     }
 
     protected function getFallback()
     {
-        return $this->engine->fallback()->get($this->getPluralForm(), $this->item);
+        return $this->engine->fallback()->get($this->getPluralForm(), $this->singular);
     }
 
     protected function getOutput()
     {
-        return $this->engine->output()->get($this->getPluralForm(), $this->count, $this->item);
+        return $this->engine->output()->get($this->getPluralForm(), $this->count, $this->singular);
     }
 
     protected function getPluralForm()
     {
-        return $this->pluralization()->run($this->item, $this->count);
+        return $this->pluralization()->run($this->singular, $this->count);
     }
 
     protected function pluralization(): Pluralization
     {
         return app($this->plurilizationDriver);
+    }
+
+    protected function restartEngine()
+    {
+        $this->engine = app(Engine::class);
     }
 
     public function __invoke()

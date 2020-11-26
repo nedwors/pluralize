@@ -2,8 +2,6 @@
 
 namespace Nedwors\Pluralize\Pluralize\Utilities;
 
-use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
-
 class Engine
 {
     protected Counter $counter;

@@ -2,7 +2,6 @@
 
 namespace Nedwors\Pluralize\Pluralize\Utilities;
 
-use Closure;
 use Nedwors\Pluralize\Pluralize\Utilities\Container\Bindings;
 
 class Output extends Vendor
