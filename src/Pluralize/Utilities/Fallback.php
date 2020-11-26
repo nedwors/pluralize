@@ -8,7 +8,6 @@ class Fallback
 {
     protected Container $container;
     protected $fallback = null;
-    protected $defaultFallback = 'default';
     protected $baseFallback = '-';
 
     public function __construct(Container $container)
@@ -56,8 +55,8 @@ class Fallback
             return $this->resolveBinding($singularString, $pluralString);
         }
 
-        if ($this->container->hasFallback($this->defaultFallback)) {
-            return $this->resolveBinding($this->defaultFallback, $pluralString);
+        if ($this->container->hasFallback(Container::DEFAULT_BINDING)) {
+            return $this->resolveBinding(Container::DEFAULT_BINDING, $pluralString);
         }
 
         return $this->baseFallback;

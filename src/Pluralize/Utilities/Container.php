@@ -6,13 +6,14 @@ use Illuminate\Support\Arr;
 
 class Container
 {
+    const DEFAULT_BINDING = 'pluralize-default-binding-key';
     protected $outputs = [];
     protected $fallbacks = [];
     protected $key = null;
 
-    public function bind($key = 'default'): self
+    public function bind($key = null): self
     {
-        $this->key = $key;
+        $this->key = $key ?? self::DEFAULT_BINDING;
 
         return $this;
     }

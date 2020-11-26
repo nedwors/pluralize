@@ -8,7 +8,6 @@ class Output
 {
     protected Container $container;
     protected $output = null;
-    protected $defaultOutput = 'default';
     protected Parser $parser;
 
     public function __construct(Container $container, Parser $parser)
@@ -67,8 +66,8 @@ class Output
             return $this->resolveBinding($singularString, $pluralString, $count);
         }
 
-        if ($this->container->hasOutput($this->defaultOutput)) {
-            return $this->resolveBinding($this->defaultOutput, $pluralString, $count);
+        if ($this->container->hasOutput(Container::DEFAULT_BINDING)) {
+            return $this->resolveBinding(Container::DEFAULT_BINDING, $pluralString, $count);
         }
 
         return "$count $pluralString";

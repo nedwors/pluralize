@@ -44,7 +44,7 @@ class Pluralize
      * @param string $key 
      * @return Container 
      */
-    public static function bind($key = 'default'): Container
+    public static function bind($key = null): Container
     {
         return app(Container::class)->bind($key);
     }

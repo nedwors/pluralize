@@ -14,18 +14,18 @@ class BindingTest extends TestCase
     }
 
     /** @test */
-    public function a_default_fallback_can_be_bound()
+    public function a_default_fallback_can_be_bound_by_calling_bind_with_no_arguments()
     {
-        Pluralize::bind('default')->fallback('Oops!');
+        Pluralize::bind()->fallback('Oops!');
 
         $string = Pluralize::this('Book')->from(null);
         $this->assertEquals('Oops!', $string);
     }
 
     /** @test */
-    public function a_default_output_can_be_bound()
+    public function a_default_output_can_be_bound_by_calling_bind_with_no_arguments()
     {
-        Pluralize::bind('default')->output('You have some items');
+        Pluralize::bind()->output('You have some items');
 
         $string = Pluralize::this('Book')->from(1);
         $this->assertEquals('You have some items', $string);
@@ -34,7 +34,7 @@ class BindingTest extends TestCase
     /** @test */
     public function a_default_output_and_fallback_can_be_bound_at_the_same_time()
     {
-        Pluralize::bind('default')
+        Pluralize::bind()
                     ->output('You have some items')
                     ->fallback('Oops!');
 
@@ -48,7 +48,7 @@ class BindingTest extends TestCase
     /** @test */
     public function a_closure_can_be_bound_for_a_fallback()
     {
-        Pluralize::bind('default')->fallback(fn() => 'Oops!');
+        Pluralize::bind()->fallback(fn() => 'Oops!');
 
         $string = Pluralize::this('Book')->from(null);
         $this->assertEquals('Oops!', $string);
