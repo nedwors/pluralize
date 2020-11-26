@@ -59,7 +59,7 @@ class PluralizeServiceProvider extends ServiceProvider
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/pluralize.php', 'pluralize');
 
-        $this->app->singleton(Pluralize::class, fn() => new Pluralize(app(Engine::class)));
         $this->app->singleton(Container::class, fn() => new Container());
+        $this->app->singleton(Pluralize::class, fn() => new Pluralize(app(Engine::class), LaravelStrPluralization::class));
     }
 }

@@ -50,21 +50,21 @@ class Output
 
     protected function getFromString($pluralString, $count)
     {
-        if (app()->has($this->output)) {
-            return $this->resolveBinding($this->output, [$pluralString, $count]);
+        if ($this->container->hasOutput($this->output)) {
+            return $this->resolveBinding($this->output, $pluralString, $count);
         }
     }
 
     protected function getDefault($pluralString, $count)
     {
         if ($this->container->hasOutput($this->defaultOutput)) {
-            return $this->resolveBinding($this->defaultOutput, [$pluralString, $count]);
+            return $this->resolveBinding($this->defaultOutput, $pluralString, $count);
         }
 
         return "$count $pluralString";
     }
 
-    protected function resolveBinding($output, $params)
+    protected function resolveBinding($output, ...$params)
     {
         $concrete = $this->container->getOutput($output);
 

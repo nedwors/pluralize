@@ -9,21 +9,27 @@ use Nedwors\Pluralize\Pluralize\Utilities\Engine;
 use Nedwors\Pluralize\Pluralize\Utilities\Container;
 use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Nedwors\Pluralize\Pluralize\Utilities\Pluralization\LaravelStrPluralization;
 
 /** @package Nedwors\Pluralize\Pluralize */
 class Pluralize
 {
-    protected $plurilizationDriver = LaravelStrPluralization::class;
+    protected $plurilizationDriver;
     protected Engine $engine;
     protected string $item;
     protected ?int $count = null;
     
-    public function __construct(Engine $engine)
+    public function __construct(Engine $engine, $driver)
     {
         $this->engine = $engine;
+        $this->plurilizationDriver = $driver;
     }
 
+    /**
+     * Set the class name of the desired Pluralization driver
+     * 
+     * @param string $driver 
+     * @return Pluralize 
+     */
     public static function driver($driver): self
     {
         $instance = app(self::class);
@@ -32,6 +38,12 @@ class Pluralize
         return $instance;
     }
 
+    /**
+     * Begin to bind into the engine's container
+     * 
+     * @param string $key 
+     * @return Container 
+     */
     public static function bind($key = 'default'): Container
     {
         return app(Container::class)->bind($key);

@@ -39,7 +39,12 @@ class Parser
 
     protected function getReplacements($matches)
     {
-        return collect($matches)->map(fn($match) => $this->count == 1 ? Str::before($match, '|') : Str::after($match, '|'));
+        return collect($matches)->map(fn($match) => $this->getCorrectSegmentOfStringForCount($match));
+    }
+
+    protected function getCorrectSegmentOfStringForCount($string)
+    {
+        return $this->count == 1 ? Str::before($string, '|') : Str::after($string, '|');
     }
 
     protected function replaceValue($string, $item)
