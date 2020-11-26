@@ -1,11 +1,48 @@
-# Very short description of the package
+# Pluralize
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/nedwors/pluralize.svg?style=flat-square)](https://packagist.org/packages/nedwors/pluralize)
 [![Build Status](https://img.shields.io/travis/nedwors/pluralize/master.svg?style=flat-square)](https://travis-ci.org/nedwors/pluralize)
 [![Quality Score](https://img.shields.io/scrutinizer/g/nedwors/pluralize.svg?style=flat-square)](https://scrutinizer-ci.com/g/nedwors/pluralize)
 [![Total Downloads](https://img.shields.io/packagist/dt/nedwors/pluralize.svg?style=flat-square)](https://packagist.org/packages/nedwors/pluralize)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+A Laravel package that provides null-safe pluralization. Although made with the Blade templating engine in mind, it can be used anywhere.
+
+From this:
+
+```php
+@isset($pizzas)
+
+{{ $pizzas->count() }} {{ Str::plural('Pizza') }}
+
+@else
+
+-
+
+@endisset
+```
+
+To this:
+
+```php
+pluralize('Pizza', $pizzas)
+```
+
+#### Ok... That's cool? I suppose?...
+It has some real power backing it up.
+
+How about this:
+
+```php
+pluralize('Pizza', $pizzas)->or('...')
+```
+
+Or even this:
+
+```php
+pluralize('Pizza', $pizzas)
+    ->as(fn($plural, $count) => "There is|are $count $plural")
+    ->or(fn($plural) => "$plural is not set")
+```
 
 ## Installation
 
