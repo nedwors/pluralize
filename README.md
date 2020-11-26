@@ -40,9 +40,21 @@ Or even this:
 
 ```php
 pluralize('Pizza', $pizzas)
+ 
     ->as(fn($plural, $count) => "There is|are $count $plural")
     ->or(fn($plural) => "$plural is not set")
 ```
+
+## TOC
+
+- [Installation](#installation)
+    * [Setup](#setup)
+- [Introduction](#introduction)
+    * [Core Principles](#core-principles)
+    * [Helper vs Class](#helper-vs-class)
+- [Features](#features)
+    * [Create](#create)
+    * [Parse](#parse)
 
 ## Installation
 
@@ -51,8 +63,32 @@ You can install the package via composer
 ```bash
 composer require nedwors/pluralize
 ```
+### Setup
+Minimal, if any, setup is required. The package is ready to work out of the box with sensible defaults. 
 
-## Features Snapshot
+The default outputs are shown below. The 1st comment represents the output when `$pizzas` has a count of 10; the 2nd represents when `$pizzas` is null:
+
+```php
+pluralize('Pizza', $pizzas)
+
+// 10 Pizzas
+// -
+```
+However you are free to [configure](#configuration) these defaults, and fine tune the system further.
+
+## Introduction
+
+### Helper vs Class
+This documentation's examples are based on the helper function `pluralize()`. But, the underlying class can also be used instead. For instance, the following are equivalent:
+
+```php
+pluralize('Dog', $dogs, '...')
+
+Pluralize::this('Dog')->from($dogs)->or('...')
+```
+For every feature discussed, they are available from either invocation.
+
+## Features
 
 The default outputs of the package are:
 
@@ -75,6 +111,7 @@ pluralize('Pizza', $pizzas)
 
 ```php
 pluralize('Pizza', $pizzas)
+    ->over(0)
     ->as(fn($plural, $count) => "You have $count $plural")
     ->or('Oops, you have no pizzas')
 
