@@ -24,7 +24,7 @@ From this:
 To this:
 
 ```php
-pluralize('Pizza', $pizzas)
+{{ pluralize('Pizza', $pizzas) }}
 ```
 
 #### Ok... That's cool? I suppose?...
