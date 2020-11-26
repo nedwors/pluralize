@@ -18,14 +18,9 @@ class Output extends Vendor
 
     public function get($pluralString, $count, $singularString)
     {
-        $result = $this->generate($singularString, $pluralString, $count);
+        $result = $this->generate($singularString, $pluralString, $count)
+                    ?? "$count $pluralString";
 
-        if (!$result) {
-            $result = "$count $pluralString";
-        }
-
-        $result = $this->parser->run($result, $count);
-        $this->userRequest = null;
-        return $result;
+        return $this->parser->run($result, $count);
     }
 }

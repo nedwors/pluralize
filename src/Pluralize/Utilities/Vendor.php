@@ -15,7 +15,9 @@ abstract class Vendor
 
     protected function generate($singularString, ...$params)
     {
-        return $this->getFromUserRequest(...$params) ?? $this->getDefault($singularString, ...$params);
+        $result = $this->getFromUserRequest(...$params) ?? $this->getDefault($singularString, ...$params);
+        $this->userRequest = null;
+        return $result;
     }
 
     protected function getFromUserRequest(...$params)
