@@ -75,4 +75,13 @@ class FallbackTest extends TestCase
         $string = Pluralize::this('Book')->from(null)->or('ellipsis-fallback');
         $this->assertEquals('...', $string);
     }
+
+    /** @test */
+    public function a_binding_can_be_made_that_matches_the_singular_word_passed()
+    {
+        Pluralize::bind('Book')->fallback('There are no books');
+
+        $string = Pluralize::this('Book')->from(null);
+        $this->assertEquals('There are no books', $string);
+    }
 }

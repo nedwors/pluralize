@@ -22,14 +22,19 @@ class Output
         $this->output = $output ?? $this->output;
     }
 
-    public function get($pluralString, $count)
+    public function get($pluralString, $count, $singularString)
     {
-        $result = $this->generate($pluralString, $count);
+        $result = $this->generate($pluralString, $count, $singularString);
+
+        if ($result) {
+            $result = $this->parser->run($result, $count);
+        }
+
         $this->output = null;
         return $result;
     }
 
-    protected function generate($pluralString, $count)
+    protected function generate($pluralString, $count, $singularString)
     {
         if (is_callable($this->output)) {
             return $this->callOutput($pluralString, $count);
@@ -39,13 +44,12 @@ class Output
             return $this->getFromString($pluralString, $count);
         }
 
-        return $this->getDefault($pluralString, $count);
+        return $this->getDefault($pluralString, $count, $singularString);
     }
 
     public function callOutput($pluralString, $count)
     {
-        $string = call_user_func($this->output, $pluralString, $count);
-        return $this->parser->run($string, $count);
+        return call_user_func($this->output, $pluralString, $count);
     }
 
     protected function getFromString($pluralString, $count)
@@ -53,10 +57,16 @@ class Output
         if ($this->container->hasOutput($this->output)) {
             return $this->resolveBinding($this->output, $pluralString, $count);
         }
+
+        return $this->output;
     }
 
-    protected function getDefault($pluralString, $count)
+    protected function getDefault($pluralString, $count, $singularString)
     {
+        if ($this->container->hasOutput($singularString)) {
+            return $this->resolveBinding($singularString, $pluralString, $count);
+        }
+
         if ($this->container->hasOutput($this->defaultOutput)) {
             return $this->resolveBinding($this->defaultOutput, $pluralString, $count);
         }

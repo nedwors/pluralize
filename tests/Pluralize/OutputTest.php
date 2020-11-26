@@ -83,7 +83,17 @@ class OutputTest extends TestCase
     }
 
     /** @test */
-    public function a_default_format_can_be_bound_in_the_service_container()
+    public function pipe_delimiting_features_are_available_to_strings()
+    {
+        $string = Pluralize::this('Book')->from(1)->as("Show me the prizes|money");
+        $this->assertEquals('Show me the prizes', $string);
+
+        $string = Pluralize::this('Book')->from(2)->as("Show me the prizes|money");
+        $this->assertEquals('Show me the money', $string);
+    }
+
+    /** @test */
+    public function a_default_format_can_be_bound()
     {
         Pluralize::bind()->output(fn($items, $count) =>  "There are $count $items");
 
@@ -94,9 +104,18 @@ class OutputTest extends TestCase
     /** @test */
     public function a_default_format_is_overriden_by_the_declared_output()
     {
-        $this->app->bind('pluralize.output', fn() => fn($items, $count) =>  "There are $count $items");
+        Pluralize::bind()->output(fn($items, $count) =>  "There are $count $items");
 
         $string = Pluralize::this('Book')->from(10)->as(fn($items, $count) => "$items - $count");
         $this->assertEquals('Books - 10', $string);
+    }
+
+    /** @test */
+    public function a_default_output_can_be_bound_to_the_singular_form_of_the_word_passed()
+    {
+        Pluralize::bind('Pizza')->output('Luke has some pizzas!');
+
+        $string = Pluralize::this('Pizza')->from(10);
+        $this->assertEquals('Luke has some pizzas!', $string);
     }
 }

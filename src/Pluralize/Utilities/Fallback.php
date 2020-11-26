@@ -21,14 +21,14 @@ class Fallback
         $this->fallback = $fallback ?? $this->fallback;
     }
 
-    public function get($pluralString)
+    public function get($pluralString, $singularString)
     {
-        $result = $this->generate($pluralString);
+        $result = $this->generate($pluralString, $singularString);
         $this->fallback = null;
         return $result;
     }
 
-    protected function generate($pluralString)
+    protected function generate($pluralString, $singularString)
     {
         if (is_callable($this->fallback)) {
             return call_user_func($this->fallback, $pluralString);
@@ -38,7 +38,7 @@ class Fallback
             return $this->getFromString($pluralString);
         }
 
-        return $this->getDefault($pluralString);
+        return $this->getDefault($pluralString, $singularString);
     }
 
     protected function getFromString($pluralString)
@@ -50,11 +50,14 @@ class Fallback
         return $this->fallback;
     }
 
-    protected function getDefault($pluralString)
+    protected function getDefault($pluralString, $singularString)
     {
+        if ($this->container->hasFallback($singularString)) {
+            return $this->resolveBinding($singularString, $pluralString);
+        }
+
         if ($this->container->hasFallback($this->defaultFallback)) {
             return $this->resolveBinding($this->defaultFallback, $pluralString);
-            
         }
 
         return $this->baseFallback;

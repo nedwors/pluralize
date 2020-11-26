@@ -109,12 +109,12 @@ class Pluralize
 
     protected function getFallback()
     {
-        return $this->engine->fallback()->get($this->getPluralForm());
+        return $this->engine->fallback()->get($this->getPluralForm(), $this->item);
     }
 
     protected function getOutput()
     {
-        return $this->engine->output()->get($this->getPluralForm(), $this->count);
+        return $this->engine->output()->get($this->getPluralForm(), $this->count, $this->item);
     }
 
     protected function getPluralForm()
