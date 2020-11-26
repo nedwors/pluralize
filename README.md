@@ -46,10 +46,49 @@ pluralize('Pizza', $pizzas)
 
 ## Installation
 
-You can install the package via composer:
+You can install the package via composer
 
 ```bash
 composer require nedwors/pluralize
+```
+
+## Features Snapshot
+
+The default outputs of the package are:
+
+
+```php
+pluralize('Pizza', $pizzas)
+
+// When $pizzas = null, '-'
+// When $pizzas = 10, '10 Pizzas'
+```
+
+Supports `null` fallbacks:
+
+```php
+pluralize('Pizza', $pizzas)
+    ->or('Oops, pizzas not found')
+
+// When $pizzas = null, 'Oops, pizzas not found'
+```
+
+```php
+pluralize('Pizza', $pizzas)
+    ->as(fn($plural, $count) => "You have $count $plural")
+    ->or('Oops, you have no pizzas')
+
+// When $pizzas = null, 'Oops, you have no pizzas'
+// When $pizzas->count() = 1, 'You have 1 pizza'
+// When $pizzas->count() = 2, 'You have 2 pizzas'
+```
+
+```php
+pluralize('Pizza', $pizzas)
+    ->as(fn($plural, $count) => "There is|are $count $plural")
+
+// When $pizzas->count() = 1, 'There is 1 pizza'
+// When $pizzas->count() = 2, 'There are 2 pizzas'
 ```
 
 ## Usage
