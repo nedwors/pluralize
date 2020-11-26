@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
 use Nedwors\Pluralize\Pluralize\Utilities\Engine;
-use Nedwors\Pluralize\Pluralize\Utilities\Container;
+use Nedwors\Pluralize\Pluralize\Utilities\Container\Container;
 use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 

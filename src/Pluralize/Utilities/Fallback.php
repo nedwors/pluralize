@@ -3,16 +3,16 @@
 namespace Nedwors\Pluralize\Pluralize\Utilities;
 
 use Closure;
+use Nedwors\Pluralize\Pluralize\Utilities\Container\Bindings;
 
 class Fallback
 {
-    protected Container $container;
+    protected Bindings $bindings;
     protected $fallback = null;
-    protected $baseFallback = '-';
 
-    public function __construct(Container $container)
+    public function __construct(Bindings $bindings)
     {
-        $this->container = $container;
+        $this->bindings = $bindings;
     }
 
     public function set($fallback)
@@ -42,7 +42,7 @@ class Fallback
 
     protected function getFromString($pluralString)
     {
-        if ($this->container->hasFallback($this->fallback)) {
+        if ($this->bindings->has($this->fallback)) {
             return $this->resolveBinding($this->fallback, $pluralString);
         }
 
@@ -51,20 +51,20 @@ class Fallback
 
     protected function getDefault($pluralString, $singularString)
     {
-        if ($this->container->hasFallback($singularString)) {
+        if ($this->bindings->has($singularString)) {
             return $this->resolveBinding($singularString, $pluralString);
         }
 
-        if ($this->container->hasFallback(Container::DEFAULT_BINDING)) {
-            return $this->resolveBinding(Container::DEFAULT_BINDING, $pluralString);
+        if ($this->bindings->has(Bindings::DEFAULT)) {
+            return $this->resolveBinding(Bindings::DEFAULT, $pluralString);
         }
 
-        return $this->baseFallback;
+        return '-';
     }
 
     protected function resolveBinding($binding, ...$params)
     {
-        $concrete = $this->container->getFallback($binding);
+        $concrete = $this->bindings->get($binding);
 
         if ($concrete instanceof Closure) {
             return $concrete(...$params);

@@ -5,12 +5,21 @@ namespace Nedwors\Pluralize;
 use Illuminate\Support\ServiceProvider;
 use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
 use Nedwors\Pluralize\Pluralize\Pluralize;
-use Nedwors\Pluralize\Pluralize\Utilities\Container;
+use Nedwors\Pluralize\Pluralize\Utilities\Container\ArrayBindings;
+use Nedwors\Pluralize\Pluralize\Utilities\Container\Bindings;
+use Nedwors\Pluralize\Pluralize\Utilities\Container\Container;
 use Nedwors\Pluralize\Pluralize\Utilities\Engine;
+use Nedwors\Pluralize\Pluralize\Utilities\Fallback;
+use Nedwors\Pluralize\Pluralize\Utilities\Output;
+use Nedwors\Pluralize\Pluralize\Utilities\Parser;
 use Nedwors\Pluralize\Pluralize\Utilities\Pluralization\LaravelStrPluralization;
 
 class PluralizeServiceProvider extends ServiceProvider
 {
+    public $bindings = [
+        Bindings::class => ArrayBindings::class
+    ];
+
     /**
      * Bootstrap the application services.
      */
@@ -59,7 +68,10 @@ class PluralizeServiceProvider extends ServiceProvider
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/pluralize.php', 'pluralize');
 
-        $this->app->singleton(Container::class, fn() => new Container());
+        $this->app->singleton(Container::class, fn() => new Container(app(Bindings::class), app(Bindings::class)));
         $this->app->singleton(Pluralize::class, fn() => new Pluralize(app(Engine::class), LaravelStrPluralization::class));
+
+        $this->app->bind(Output::class, fn() => new Output(app(Container::class)->outputs, app(Parser::class)));
+        $this->app->bind(Fallback::class, fn() => new Fallback(app(Container::class)->fallbacks));
     }
 }

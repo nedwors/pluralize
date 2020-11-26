@@ -3,17 +3,18 @@
 namespace Nedwors\Pluralize\Pluralize\Utilities;
 
 use Closure;
+use Nedwors\Pluralize\Pluralize\Utilities\Container\Bindings;
 
 class Output
 {
-    protected Container $container;
-    protected $output = null;
+    protected Bindings $bindings;
     protected Parser $parser;
+    protected $output = null;
 
-    public function __construct(Container $container, Parser $parser)
+    public function __construct(Bindings $bindings, Parser $parser)
     {
         $this->parser = $parser;
-        $this->container = $container;
+        $this->bindings = $bindings;
     }
 
     public function set($output)
@@ -36,7 +37,7 @@ class Output
     protected function generate($pluralString, $count, $singularString)
     {
         if (is_callable($this->output)) {
-            return $this->callOutput($pluralString, $count);
+            return call_user_func($this->output, $pluralString, $count);
         }
 
         if (is_string($this->output)) {
@@ -46,14 +47,9 @@ class Output
         return $this->getDefault($pluralString, $count, $singularString);
     }
 
-    public function callOutput($pluralString, $count)
-    {
-        return call_user_func($this->output, $pluralString, $count);
-    }
-
     protected function getFromString($pluralString, $count)
     {
-        if ($this->container->hasOutput($this->output)) {
+        if ($this->bindings->has($this->output)) {
             return $this->resolveBinding($this->output, $pluralString, $count);
         }
 
@@ -62,12 +58,12 @@ class Output
 
     protected function getDefault($pluralString, $count, $singularString)
     {
-        if ($this->container->hasOutput($singularString)) {
+        if ($this->bindings->has($singularString)) {
             return $this->resolveBinding($singularString, $pluralString, $count);
         }
 
-        if ($this->container->hasOutput(Container::DEFAULT_BINDING)) {
-            return $this->resolveBinding(Container::DEFAULT_BINDING, $pluralString, $count);
+        if ($this->bindings->has(Bindings::DEFAULT)) {
+            return $this->resolveBinding(Bindings::DEFAULT, $pluralString, $count);
         }
 
         return "$count $pluralString";
@@ -75,7 +71,7 @@ class Output
 
     protected function resolveBinding($output, ...$params)
     {
-        $concrete = $this->container->getOutput($output);
+        $concrete = $this->bindings->get($output);
 
         if ($concrete instanceof Closure) {
             return $concrete(...$params);

@@ -3,7 +3,7 @@
 namespace Nedwors\Pluralize\Tests\Pluralize;
 
 use Nedwors\Pluralize\Pluralize\Pluralize;
-use Nedwors\Pluralize\Pluralize\Utilities\Container;
+use Nedwors\Pluralize\Pluralize\Utilities\Container\Container;
 use Orchestra\Testbench\TestCase;
 use Nedwors\Pluralize\PluralizeServiceProvider;
 
@@ -21,8 +21,8 @@ class ContainerTest extends TestCase
 
         $container->bind('Book')->output('Hello');
 
-        $this->assertTrue($container->hasOutput('Book'));
-        $this->assertEquals('Hello', $container->getOutput('Book'));
+        $this->assertTrue($container->outputs->has('Book'));
+        $this->assertEquals('Hello', $container->outputs->get('Book'));
     }
 
     /** @test */
@@ -32,8 +32,8 @@ class ContainerTest extends TestCase
 
         $container->bind('Book')->fallback('Hello');
 
-        $this->assertTrue($container->hasFallback('Book'));
-        $this->assertEquals('Hello', $container->getFallback('Book'));
+        $this->assertTrue($container->fallbacks->has('Book'));
+        $this->assertEquals('Hello', $container->fallbacks->get('Book'));
     }
 
     /** @test */
@@ -43,10 +43,10 @@ class ContainerTest extends TestCase
 
         $container->bind('Book')->fallback('Hello')->output('Goodbye');
 
-        $this->assertTrue($container->hasFallback('Book'));
-        $this->assertEquals('Hello', $container->getFallback('Book'));
+        $this->assertTrue($container->fallbacks->has('Book'));
+        $this->assertEquals('Hello', $container->fallbacks->get('Book'));
 
-        $this->assertTrue($container->hasOutput('Book'));
-        $this->assertEquals('Goodbye', $container->getOutput('Book'));
+        $this->assertTrue($container->outputs->has('Book'));
+        $this->assertEquals('Goodbye', $container->outputs->get('Book'));
     }
 }
