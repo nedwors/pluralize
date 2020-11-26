@@ -2,8 +2,6 @@
 
 namespace Nedwors\Pluralize\Pluralize\Utilities\Container;
 
-use Illuminate\Support\Arr;
-
 class Container
 {
     public Bindings $outputs;

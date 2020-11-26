@@ -13,8 +13,8 @@ class Output
 
     public function __construct(Bindings $bindings, Parser $parser)
     {
-        $this->parser = $parser;
         $this->bindings = $bindings;
+        $this->parser = $parser;
     }
 
     public function set($output)
@@ -74,7 +74,7 @@ class Output
         $concrete = $this->bindings->get($output);
 
         if ($concrete instanceof Closure) {
-            return $concrete(...$params);
+            return call_user_func($concrete, ...$params);
         }
 
         return $concrete;

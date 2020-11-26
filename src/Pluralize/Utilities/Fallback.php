@@ -67,7 +67,7 @@ class Fallback
         $concrete = $this->bindings->get($binding);
 
         if ($concrete instanceof Closure) {
-            return $concrete(...$params);
+            return call_user_func($concrete, ...$params);
         }
 
         return $concrete;
