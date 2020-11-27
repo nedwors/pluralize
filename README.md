@@ -52,8 +52,9 @@ Although made with the Blade templating engine in mind, it can be used anywhere 
     * [Pluralize](*pluralize)
     * [This](#this)
     * [From](#from)
-    * [As](#as)
     * [Or](#or)
+    * [As](#as)
+    
 
 ## Installation
 
@@ -123,11 +124,97 @@ pluralize(...)->from(...)->as(...)->or(...)
 ### This
 The singular form of the string you wish to be pluralized.
 
-Simple.
+
+```php
+// The first argument to the helper function
+
+pluralize('Rocket')
+```
 
 ### From
-The 
+The count/total/sum you wish to pluralize the string from and/or display.
 
+The variable you pass can be an `int`, an `array`, a [`Collection`](https://laravel.com/docs/8.x/collections), a [`LengthAwarePaginator`](https://laravel.com/docs/8.x/pagination#displaying-pagination-results) or a [`Paginator`](https://laravel.com/docs/8.x/pagination#displaying-pagination-results).
+
+```php
+// The second argument to the helper function
+
+pluralize('Rocket', $rockets)
+
+// Or, as a method
+
+pluralize('Rocket')->from($rockets)
+```
+   
+> By this point, it's worth noting that you are good to go. Nothing more  is required for most uses.
+> 
+> Pluralize does provide extra features for more flexibility. These are detailed below, as well as [configuration](#configuration).
+
+### Or
+
+The [Fallback](#fallback) you wish to use. Basically, the string to display if the [count](#from) is `null`.
+
+This is not required. If not provided, it will simply defer to the default [Fallback](#fallback).
+
+```php
+// The third argument to the helper function
+
+pluralize('Rocket', $rockets, '...')
+
+// Or, as a method
+
+pluralize('Rocket', $rockets)->or('...')
+```
+
+In addition to providing a `string`, you can pass a `Closure` that will receive the pluralized form of the word.
+
+```php
+pluralize('Rocket', $rockets)
+    ->or(fn($plural) => "Oops, $plural is not defined")
+
+// Oops, Rockets is not defined
+```
+##### Why would I ever write a `Closure` when I can just type `Oops, Rockets is not defined`? After all, I know the plural is going to be `Rockets`?
+
+It's true, it's probably unlikely. But at least the power is there if needed. For instance, perhaps you want to grab the `Auth::user()`, or give context with the current time.
+
+However, the power of using a `Closure` really comes to the fore when [configuring](#configuration) the package.
+
+### As
+
+The [Output](#output) you wish to use. Basically, the format to display the pluralization.
+
+Like [or](#or), this is not required. If not provided, it will simply defer to the default [Output](#output).
+
+The most useful means is declaring this as a `Closure`, which is passed the plural form of the string and the count.
+
+```php
+// The fourth argument to the helper function
+
+pluralize('Rocket', $rockets, '...', fn($plural, $count) => "$plural: $count")
+
+// Or, probably more usefully, as a method
+
+pluralize('Rocket', $rockets)->as(fn($plural, $count) => "$plural: $count")
+
+// Rockets: 10
+```
+How about though, if you wanted something along the lines of `there are 10 Rockets`? When there's 1 `Rocket`, you'll end up with `There are 1 Rocket`... Hmm. Well, the pipe operator is your friend! Simply declare the singular output to the left of the `|`, the plural to the right.
+```php
+pluralize('Rocket', $rockets)
+    ->as(fn($plural, $count) => "There is|are $count $plural")
+
+// There is 1 Rocket
+// There are 2 Rockets
+```
+Now, you can pass a `string` if you really, really want to...
+```php
+pluralize('Rocket', $rockets)
+    ->as('Not sure how many, but you have some Rockets')
+
+// Now sure how many, but you have some Rockets
+```
+But this is most useful when used with your [configuration](#configuration).
 
 The default outputs of the package are:
 
