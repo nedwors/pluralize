@@ -48,7 +48,7 @@ Although made with the Blade templating engine in mind, it can be used anywhere 
 - [Introduction](#introduction)
     * [Core Principles](#core-principles)
     * [Helper vs Class](#helper-vs-class)
-- [Features/API](#features)
+- [Features/API](#features/api)
     * [Pluralize](*pluralize)
     * [This](#this)
     * [From](#from)
@@ -97,7 +97,37 @@ pluralize('Dog', $dogs, '...')
 Pluralize::this('Dog')->from($dogs)->or('...')
 ```
 
-## Features
+## Features/API
+
+### Pluralize
+
+The Pluralize class has 4 main functions:
+
+```php
+Pluralize::this(...)->from(...)->as(...)->or(...)
+```
+
+The `pluralize()` helper function has 4 parameters that map to these functions:
+
+```php
+pluralize('this', 'from', 'or', 'as')
+```
+You'll notice that `or` is listed before `as` in the parameter list. This helps with usability for most use cases.
+
+As `pluralize()` returns an instance of `Pluralize`, it can be accessed fluently if you so wish. 
+
+```php
+pluralize(...)->from(...)->as(...)->or(...)
+```
+
+### This
+The singular form of the string you wish to be pluralized.
+
+Simple.
+
+### From
+The 
+
 
 The default outputs of the package are:
 
