@@ -11,13 +11,12 @@
     "authors": [
         {
             "name": "Sam Rowden",
-            "email": "nedwors@gmail.com",
-            "role": "Developer"
+            "email": "nedwors@gmail.com"
         }
     ],
     "require": {
         "php": "^7.1",
-        "illuminate/support": "^6.0|^7.0|8.0"
+        "illuminate/support": "^6.0|^7.0|^8.0"
     },
     "require-dev": {
         "orchestra/testbench": "^4.0",
@@ -45,10 +44,7 @@
         "laravel": {
             "providers": [
                 "Nedwors\\Pluralize\\PluralizeServiceProvider"
-            ],
-            "aliases": {
-                "Pluralize": "Nedwors\\Pluralize\\PluralizeFacade"
-            }
+            ]
         }
     }
 }
