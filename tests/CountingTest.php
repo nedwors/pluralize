@@ -3,9 +3,9 @@
 namespace Nedwors\Pluralize\Tests;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use Nedwors\Pluralize\PluralizeServiceProvider;
-use Nedwors\Pluralize\Pluralize\Pluralize;
 use Illuminate\Pagination\Paginator;
+use Nedwors\Pluralize\Pluralize\Pluralize;
+use Nedwors\Pluralize\PluralizeServiceProvider;
 use Orchestra\Testbench\TestCase;
 
 class CountingTest extends TestCase
@@ -18,7 +18,7 @@ class CountingTest extends TestCase
     /** @test */
     public function zero_is_counted_correctly()
     {
-        $this->assertEquals("0 Books", Pluralize::this('Book')->from(0));
+        $this->assertEquals('0 Books', Pluralize::this('Book')->from(0));
     }
 
     /** @test */
@@ -32,9 +32,9 @@ class CountingTest extends TestCase
     /** @test */
     public function negative_numbers_will_be_counted()
     {
-        $this->assertEquals("-1 Book", Pluralize::this('Book')->from(-1));
+        $this->assertEquals('-1 Book', Pluralize::this('Book')->from(-1));
 
-        $this->assertEquals("-2 Books", Pluralize::this('Book')->from(-2));
+        $this->assertEquals('-2 Books', Pluralize::this('Book')->from(-2));
     }
 
     /** @test */
@@ -42,7 +42,7 @@ class CountingTest extends TestCase
     {
         $items = collect(range(2, rand(3, 100)))->toArray();
 
-        $this->assertEquals(count($items) . ' Books', Pluralize::this('Book')->from($items));
+        $this->assertEquals(count($items).' Books', Pluralize::this('Book')->from($items));
     }
 
     /** @test */
@@ -50,13 +50,13 @@ class CountingTest extends TestCase
     {
         $items = collect(range(2, rand(3, 100)));
 
-        $this->assertEquals($items->count() . ' Books', Pluralize::this('Book')->from($items));
+        $this->assertEquals($items->count().' Books', Pluralize::this('Book')->from($items));
     }
 
     /** @test */
     public function it_can_count_from_a_lengthAwarePaginator()
     {
-        $items = new LengthAwarePaginator([1,2,3,4,5], 5, 5);
+        $items = new LengthAwarePaginator([1, 2, 3, 4, 5], 5, 5);
 
         $this->assertEquals('5 Books', Pluralize::this('Book')->from($items));
     }
@@ -64,7 +64,7 @@ class CountingTest extends TestCase
     /** @test */
     public function it_can_count_from_a_paginator()
     {
-        $items = new Paginator([1,2,3,4,5], 5);
+        $items = new Paginator([1, 2, 3, 4, 5], 5);
 
         $this->assertEquals('5 Books', Pluralize::this('Book')->from($items));
     }

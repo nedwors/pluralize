@@ -2,9 +2,9 @@
 
 namespace Nedwors\Pluralize\Tests;
 
-use Nedwors\Pluralize\Tests\Pluralize\Mocks\MockPluralization;
-use Nedwors\Pluralize\PluralizeServiceProvider;
 use Nedwors\Pluralize\Pluralize\Pluralize;
+use Nedwors\Pluralize\PluralizeServiceProvider;
+use Nedwors\Pluralize\Tests\Pluralize\Mocks\MockPluralization;
 use Orchestra\Testbench\TestCase;
 
 class DriversTest extends TestCase
