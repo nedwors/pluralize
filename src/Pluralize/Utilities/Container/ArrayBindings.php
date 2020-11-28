@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 class ArrayBindings implements Bindings
 {
     protected $bindings = [];
-    
+
     public function set($key, $binding)
     {
         $this->bindings[$key] = $binding;

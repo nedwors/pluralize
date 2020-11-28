@@ -2,22 +2,21 @@
 
 namespace Nedwors\Pluralize\Pluralize;
 
-use Nedwors\Pluralize\Pluralize\Utilities\Container\Container;
+use Closure;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Nedwors\Pluralize\Pluralize\Utilities\Engine;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Collection;
+use Nedwors\Pluralize\Pluralize\Utilities\Container\Container;
+use Nedwors\Pluralize\Pluralize\Utilities\Engine;
 use Stringable;
-use Closure;
 
-/** @package Nedwors\Pluralize\Pluralize */
 class Pluralize implements Stringable
 {
     protected $plurilizationDriver;
     protected Engine $engine;
     protected string $singular;
     protected ?int $count = null;
-    
+
     public function __construct($driver)
     {
         $this->startEngine();
@@ -25,11 +24,10 @@ class Pluralize implements Stringable
     }
 
     /**
-     * Set the class name of the desired Pluralization driver
-     * 
-     * @param string $driver 
-     * @return Pluralize 
-     * @package Nedwors\Pluralize\Pluralize
+     * Set the class name of the desired Pluralization driver.
+     *
+     * @param string $driver
+     * @return Pluralize
      */
     public static function driver($driver): self
     {
@@ -40,11 +38,10 @@ class Pluralize implements Stringable
     }
 
     /**
-     * Begin to bind into the engine's container
-     * 
-     * @param string $key 
+     * Begin to bind into the engine's container.
+     *
+     * @param string $key
      * @return Container
-     * @package Nedwors\Pluralize\Pluralize
      */
     public static function bind($key = null): Container
     {
@@ -52,11 +49,10 @@ class Pluralize implements Stringable
     }
 
     /**
-     * Define the singular form of the word to be pluralized
-     * 
-     * @param string $item 
+     * Define the singular form of the word to be pluralized.
+     *
+     * @param string $item
      * @return Pluralize
-     * @package Nedwors\Pluralize\Pluralize 
      */
     public static function this(string $singular): self
     {
@@ -67,11 +63,10 @@ class Pluralize implements Stringable
     }
 
     /**
-     * Define what should be counted
-     * 
-     * @param int|array|Collection|LengthAwarePaginator|Paginator $countable 
-     * @return Pluralize 
-     * @package Nedwors\Pluralize\Pluralize
+     * Define what should be counted.
+     *
+     * @param int|array|Collection|LengthAwarePaginator|Paginator $countable
+     * @return Pluralize
      */
     public function from($countable): self
     {
@@ -81,11 +76,10 @@ class Pluralize implements Stringable
     }
 
     /**
-     * Define the format of the generated string
-     * 
-     * @param string|Closure $output 
+     * Define the format of the generated string.
+     *
+     * @param string|Closure $output
      * @return Pluralize
-     * @package Nedwors\Pluralize\Pluralize
      */
     public function as($output): self
     {
@@ -95,11 +89,10 @@ class Pluralize implements Stringable
     }
 
     /**
-     * Define the format of the generated fallback string
-     * 
-     * @param string|Closure $fallback 
-     * @return Pluralize 
-     * @package Nedwors\Pluralize\Pluralize
+     * Define the format of the generated fallback string.
+     *
+     * @param string|Closure $fallback
+     * @return Pluralize
      */
     public function or($fallback): self
     {
@@ -109,15 +102,15 @@ class Pluralize implements Stringable
     }
 
     /**
-     * Return the generated string
-     * 
-     * @return string 
-     * @package Nedwors\Pluralize\Pluralize
+     * Return the generated string.
+     *
+     * @return string
      */
     public function go()
     {
         $string = is_null($this->count) ? $this->getFallback() : $this->getOutput();
         $this->startEngine();
+
         return $string;
     }
 

@@ -14,6 +14,7 @@ class Parser
     {
         $this->string = $string;
         $this->count = $count;
+
         return $this->parse();
     }
 
@@ -27,19 +28,19 @@ class Parser
     protected function modifyString($matches)
     {
         return collect($this->pairReplacementsWithMatches($matches))
-                ->reduce(fn($carry, $item) => $this->replaceValue($carry, $item), $this->string);
+                ->reduce(fn ($carry, $item) => $this->replaceValue($carry, $item), $this->string);
     }
 
     protected function pairReplacementsWithMatches($matches)
     {
         return collect($matches)
-                ->map(fn($match) => Str::replaceFirst('|', '\|', $match))
+                ->map(fn ($match) => Str::replaceFirst('|', '\|', $match))
                 ->zip($this->getReplacements($matches));
     }
 
     protected function getReplacements($matches)
     {
-        return collect($matches)->map(fn($match) => $this->getCorrectSegmentOfStringForCount($match));
+        return collect($matches)->map(fn ($match) => $this->getCorrectSegmentOfStringForCount($match));
     }
 
     protected function getCorrectSegmentOfStringForCount($string)
@@ -49,12 +50,13 @@ class Parser
 
     protected function replaceValue($string, $item)
     {
-        return preg_replace('/' . $item[0] . '/', $item[1], $string);
+        return preg_replace('/'.$item[0].'/', $item[1], $string);
     }
 
     protected function findMatches()
     {
         preg_match_all($this->regexPattern, $this->string, $matches);
+
         return $matches[0];
     }
 }
