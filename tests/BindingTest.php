@@ -53,4 +53,13 @@ class BindingTest extends TestCase
         $string = Pluralize::this('Book')->from(null);
         $this->assertEquals('Oops!', $string);
     }
+
+    /** @test */
+    public function a_closure_can_be_bound_for_an_output()
+    {
+        Pluralize::bind()->output(fn($plural, $count) => "Currently, $count $plural");
+
+        $string = Pluralize::this('Book')->from(10);
+        $this->assertEquals('Currently, 10 Books', $string);
+    }
 }
