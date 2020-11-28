@@ -96,7 +96,7 @@ Pluralize::this('Dog')->from($dogs)->or('...')
 ```
 
 ### Usage
-`Pluralize` implements the `Stringable` interface, so in your views it works just by calling the helper function or class. 
+`Pluralize` implements the `Stringable` interface, so in your Blade views it works just by calling the helper function or class. 
 ```php
 pluralize('Dog', $dogs)
 ```
