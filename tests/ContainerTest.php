@@ -1,11 +1,10 @@
 <?php
 
-namespace Nedwors\Pluralize\Tests\Pluralize;
+namespace Nedwors\Pluralize\Tests;
 
-use Nedwors\Pluralize\Pluralize\Pluralize;
 use Nedwors\Pluralize\Pluralize\Utilities\Container\Container;
-use Orchestra\Testbench\TestCase;
 use Nedwors\Pluralize\PluralizeServiceProvider;
+use Orchestra\Testbench\TestCase;
 
 class ContainerTest extends TestCase
 {

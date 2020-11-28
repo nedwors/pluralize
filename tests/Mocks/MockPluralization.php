@@ -1,6 +1,6 @@
 <?php
 
-namespace Nedwors\Pluralize\Tests\Pluralize\Mocks;
+namespace Nedwors\Pluralize\Tests\Mocks;
 
 use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
 

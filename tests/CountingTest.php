@@ -1,12 +1,12 @@
 <?php
 
-namespace Nedwors\Pluralize\Tests\Pluralize;
+namespace Nedwors\Pluralize\Tests;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Nedwors\Pluralize\Pluralize\Pluralize;
-use Orchestra\Testbench\TestCase;
 use Nedwors\Pluralize\PluralizeServiceProvider;
+use Nedwors\Pluralize\Pluralize\Pluralize;
+use Illuminate\Pagination\Paginator;
+use Orchestra\Testbench\TestCase;
 
 class CountingTest extends TestCase
 {

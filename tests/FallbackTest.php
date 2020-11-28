@@ -1,10 +1,10 @@
 <?php
 
-namespace Nedwors\Pluralize\Tests\Pluralize;
+namespace Nedwors\Pluralize\Tests;
 
+use Nedwors\Pluralize\PluralizeServiceProvider;
 use Nedwors\Pluralize\Pluralize\Pluralize;
 use Orchestra\Testbench\TestCase;
-use Nedwors\Pluralize\PluralizeServiceProvider;
 
 class FallbackTest extends TestCase
 {
