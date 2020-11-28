@@ -127,7 +127,7 @@ pluralize('this', 'from', 'or', 'as')
 ```
 You'll notice that `or` is listed before `as` in the parameter list. This helps with usability for most use cases.
 
-As `pluralize()` returns an instance of `Pluralize`, it can be accessed fluently if you so wish. 
+As `pluralize()` returns an instance of `Pluralize`, it can be accessed fluently too
 
 ```php
 pluralize(...)->from(...)->as(...)->or(...)
