@@ -54,7 +54,7 @@ abstract class Vendor
 
     protected function resolve($output, ...$params)
     {
-        return is_callable($concrete = $this->bindings->get($output)) 
+        return is_callable($concrete = $this->bindings->get($output))
             ? $this->runClosure($concrete, ...$params)
             : $concrete;
     }

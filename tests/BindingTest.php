@@ -2,8 +2,8 @@
 
 namespace Nedwors\Pluralize\Tests;
 
-use Nedwors\Pluralize\PluralizeServiceProvider;
 use Nedwors\Pluralize\Pluralize\Pluralize;
+use Nedwors\Pluralize\PluralizeServiceProvider;
 use Orchestra\Testbench\TestCase;
 
 class BindingTest extends TestCase
@@ -48,7 +48,7 @@ class BindingTest extends TestCase
     /** @test */
     public function a_closure_can_be_bound_for_a_fallback()
     {
-        Pluralize::bind()->fallback(fn() => 'Oops!');
+        Pluralize::bind()->fallback(fn () => 'Oops!');
 
         $string = Pluralize::this('Book')->from(null);
         $this->assertEquals('Oops!', $string);
@@ -57,7 +57,7 @@ class BindingTest extends TestCase
     /** @test */
     public function a_closure_can_be_bound_for_an_output()
     {
-        Pluralize::bind()->output(fn($plural, $count) => "Currently, $count $plural");
+        Pluralize::bind()->output(fn ($plural, $count) => "Currently, $count $plural");
 
         $string = Pluralize::this('Book')->from(10);
         $this->assertEquals('Currently, 10 Books', $string);
