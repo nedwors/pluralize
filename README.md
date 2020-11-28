@@ -38,7 +38,7 @@ No more `count($me)`, `$me->count()` or `$me->total()`... Just pass in your vari
 
 No need to repeat `{{ $lemons->count() }} {{ Str::plural('Lemon') }}` over and over everywhere in your views. Just a unified format across your app.
 
-No need to think anymore about whether the variable is `null` and what to do if so, just [Fallback](#fallback) to a `-`, or [whatever you want](#or).
+No need to think anymore about whether the variable is `null` and what to do if so, just a clean `-`, or [whatever you want](#or).
 
 > The stuff of nightmares...
 >
