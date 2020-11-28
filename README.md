@@ -1,9 +1,6 @@
 # Pluralize - A Laravel string helper
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/nedwors/pluralize.svg?style=flat-square)](https://packagist.org/packages/nedwors/pluralize)
-[![Build Status](https://img.shields.io/travis/nedwors/pluralize/master.svg?style=flat-square)](https://travis-ci.org/nedwors/pluralize)
-[![Quality Score](https://img.shields.io/scrutinizer/g/nedwors/pluralize.svg?style=flat-square)](https://scrutinizer-ci.com/g/nedwors/pluralize)
-[![Total Downloads](https://img.shields.io/packagist/dt/nedwors/pluralize.svg?style=flat-square)](https://packagist.org/packages/nedwors/pluralize)
 
 A Laravel package that provides null-safe, meaningful pluralization of strings. 
 
@@ -12,7 +9,7 @@ Go from this...
 ```php
 @if($pizzas)
 
-{{ $pizzas->count() }} {{ Str::plural('Pizza') }}
+{{ $pizzas->count() }} {{ Str::plural('Pizza', $pizzas->count()) }}
 
 @else
 
@@ -36,7 +33,7 @@ Nice eh?
 
 No more `count($me)`, `$me->count()` or `$me->total()`... Just pass in your variable and have it counted for you.
 
-No need to repeat `{{ $lemons->count() }} {{ Str::plural('Lemon') }}` over and over everywhere in your views. Just a unified format across your app.
+No need to repeat `{{ $lemons->count() }} {{ Str::plural('Lemon', $lemons->count()) }}` over and over everywhere in your views. Just a unified format across your app.
 
 No need to think anymore about whether the variable is `null` and what to do if so, just a clean `-`, or [whatever you want](#or).
 
@@ -286,12 +283,6 @@ Then set this as the desired driver in the `boot()` method of your service provi
 
 ```php
 Pluralize::driver(NewDriver::class)
-```
-
-### Testing
-
-``` bash
-composer test
 ```
 
 ### Changelog
