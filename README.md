@@ -49,11 +49,14 @@ Although made with the Blade templating engine in mind, it can be used anywhere 
     * [Core Principles](#core-principles)
     * [Helper vs Class](#helper-vs-class)
 - [Features/API](#features/api)
-    * [Pluralize](*pluralize)
+    * [Pluralize](#pluralize)
     * [This](#this)
     * [From](#from)
     * [Or](#or)
     * [As](#as)
+- [Configuration](#configuration)
+    * [Default Bindings](#default-bindings)
+    * [Specific Bindings](#specific-bindings)
     
 
 ## Installation
@@ -174,7 +177,7 @@ pluralize('Rocket', $rockets)
 
 // Oops, Rockets is not defined
 ```
-##### Why would I ever write a `Closure` when I can just type `Oops, Rockets is not defined`? After all, I know the plural is going to be `Rockets`?
+##### Why would I ever write a `Closure` when I can just type `Oops, Rockets is not defined`?
 
 It's true, it's probably unlikely. But at least the power is there if needed. For instance, perhaps you want to grab the `Auth::user()`, or give context with the current time.
 
@@ -184,7 +187,7 @@ However, the power of using a `Closure` really comes to the fore when [configuri
 
 The [Output](#output) you wish to use. Basically, the format to display the pluralization.
 
-Like [or](#or), this is not required. If not provided, it will simply defer to the default [Output](#output).
+Like [Or](#or), this is not required. If not provided, it will simply defer to the default [Output](#output).
 
 The most useful means is declaring this as a `Closure`, which is passed the plural form of the string and the count.
 
@@ -199,7 +202,7 @@ pluralize('Rocket', $rockets)->as(fn($plural, $count) => "$plural: $count")
 
 // Rockets: 10
 ```
-How about though, if you wanted something along the lines of `there are 10 Rockets`? When there's 1 `Rocket`, you'll end up with `There are 1 Rocket`... Hmm. Well, the pipe operator is your friend! Simply declare the singular output to the left of the `|`, the plural to the right.
+How about if you wanted something along the lines of `there are 10 Rockets`? When there's 1 `Rocket`, you'll end up with `There are 1 Rocket`... Hmm. Well, the pipe operator is your friend! Simply declare the singular output to the left, the plural to the right.
 ```php
 pluralize('Rocket', $rockets)
     ->as(fn($plural, $count) => "There is|are $count $plural")
@@ -215,6 +218,51 @@ pluralize('Rocket', $rockets)
 // Now sure how many, but you have some Rockets
 ```
 But this is most useful when used with your [configuration](#configuration).
+
+## Configuration
+You can easily declare different formats for use in your app. This is done via `Pluralize::bind()` in the `boot()` method of your Service Provider.
+### Default Bindings
+You can declare the default formats for use in your app by calling `Pluralize::bind()` with no arguments
+```php
+// In your service provider's boot() method
+Pluralize::bind()
+    ->output(fn($plural, $count) => "$plural: $count")
+    ->fallback('...')
+
+// In your view
+pluralize('Car', $cars)
+
+// When $cars = null, ...
+// When $cars = 10, Cars: 10
+```
+
+> The default Output is `n items`. The default Fallback is `-`.
+
+### Specific Defaults
+You can reference the word you want to pluralize for specific formatting
+
+```php
+// In your service provider's boot() method
+Pluralize::bind('Hotdog')
+    ->output(fn($plural, $count) => "Yum, $count hotdogs!")
+
+// In your view
+pluralize('Car', $cars) // 10 Cars
+pluralize('Hotdog', $hotdogs) // Yum, 10 hotdogs!
+```
+You can set an arbitrary key to then refer to at time of render
+
+```php
+// In your service provider's boot() method
+Pluralize::bind('ye-olde')
+    ->fallback(fn($plural) => "Thou hath not declared $plural")
+
+// In your view
+pluralize('Robot', null) // -
+pluralize('DeLorean', null)->or('ye-olde') // Thou hath not declared DeLoreans
+```
+
+
 
 The default outputs of the package are:
 
