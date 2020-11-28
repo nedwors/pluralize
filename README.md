@@ -1,7 +1,6 @@
 # Pluralize - A Laravel string helper
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/nedwors/pluralize.svg?style=flat-square)](https://packagist.org/packages/nedwors/pluralize)
-[![Total Downloads](https://img.shields.io/packagist/dt/nedwors/pluralize.svg?style=flat-square)](https://packagist.org/packages/nedwors/pluralize)
 
 A Laravel package that provides null-safe, meaningful pluralization of strings. 
 
@@ -284,12 +283,6 @@ Then set this as the desired driver in the `boot()` method of your service provi
 
 ```php
 Pluralize::driver(NewDriver::class)
-```
-
-### Testing
-
-``` bash
-composer test
 ```
 
 ### Changelog
