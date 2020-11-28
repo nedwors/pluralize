@@ -229,7 +229,7 @@ pluralize('Rocket', $rockets)
 ...but this is most useful when used with your [configuration](#configuration).
 
 ## Configuration
-You can easily declare different formats for use in your app. This is done via `Pluralize::bind()` in the `boot()` method of your Service Provider.
+You can easily configure different aspects of the package. This is all done via the `Pluralize` class in your service provider.
 ### Default Bindings
 You can declare the default formats for use in your app by calling `Pluralize::bind()` with no arguments
 ```php
