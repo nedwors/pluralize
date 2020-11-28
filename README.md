@@ -12,7 +12,7 @@ Go from this...
 ```php
 @if($pizzas)
 
-{{ $pizzas->count() }} {{ Str::plural('Pizza', $pizzas) }}
+{{ $pizzas->count() }} {{ Str::plural('Pizza', $pizzas->count()) }}
 
 @else
 
