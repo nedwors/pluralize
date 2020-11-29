@@ -271,7 +271,7 @@ pluralize('DeLorean', null)->or('ye-olde') // Thou hath not declared DeLoreans
 ### Driver
 The package uses the Laravel [`Str::plural()`](https://laravel.com/docs/8.x/helpers#method-str-plural) method for pluralizing the strings passed in. You are free to use your own driver if desired. This would be especially useful for non-english languages.
 
-Write your custom driver implenting the `Pluralization` interface. This defines one method, `run()`, which is passed the singular string and the current count. Here's the current implementation:
+Write your custom driver implementing the `Pluralization` interface. This defines one method, `run()`, which is passed the singular string and the current count. Here's the current implementation:
 
 ```php
 public function run(string $string, $count): string
