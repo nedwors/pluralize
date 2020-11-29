@@ -2,20 +2,19 @@
 
 namespace Nedwors\Pluralize\Pluralize;
 
-use Closure;
+use Nedwors\Pluralize\Pluralize\Utilities\Container\Container;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Nedwors\Pluralize\Pluralize\Utilities\Engine;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Collection;
-use Nedwors\Pluralize\Pluralize\Utilities\Container\Container;
-use Nedwors\Pluralize\Pluralize\Utilities\Engine;
 use Stringable;
+use Closure;
 
 class Pluralize implements Stringable
 {
     protected $plurilizationDriver;
     protected Engine $engine;
     protected string $singular;
-    protected ?int $count = null;
 
     public function __construct($driver)
     {
@@ -70,7 +69,7 @@ class Pluralize implements Stringable
      */
     public function from($countable): self
     {
-        $this->count = $this->engine->counter()->calculate($countable);
+        $this->engine->counter()->calculate($countable);
 
         return $this;
     }
@@ -108,10 +107,15 @@ class Pluralize implements Stringable
      */
     public function go()
     {
-        $string = is_null($this->count) ? $this->getFallback() : $this->getOutput();
+        $string = $this->countIsNull() ? $this->getFallback() : $this->getOutput();
         $this->startEngine();
 
         return $string;
+    }
+
+    protected function countIsNull()
+    {
+        return is_null($this->engine->counter()->count);
     }
 
     protected function getFallback()
@@ -121,13 +125,13 @@ class Pluralize implements Stringable
 
     protected function getOutput()
     {
-        return $this->engine->output()->get($this->pluralized(), $this->count, $this->singular);
+        return $this->engine->output()->get($this->pluralized(), $this->engine->counter()->count, $this->singular);
     }
 
     protected function pluralized()
     {
         return $this->engine->pluralization($this->plurilizationDriver)
-                            ->run($this->singular, $this->count);
+                            ->run($this->singular, $this->engine->counter()->count);
     }
 
     protected function startEngine()

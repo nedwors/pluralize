@@ -8,9 +8,11 @@ use Illuminate\Support\Collection;
 
 class Counter
 {
+    public $count = null;
+
     public function calculate($countable)
     {
-        return $this->count($countable);
+        $this->count = $this->count($countable);
     }
 
     protected function count($countable)

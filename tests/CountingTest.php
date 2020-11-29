@@ -68,4 +68,14 @@ class CountingTest extends TestCase
 
         $this->assertEquals('5 Books', Pluralize::this('Book')->from($items));
     }
+
+    /** @test */
+    public function counts_will_not_affect_subsequent_instances()
+    {
+        $string = Pluralize::this('Cat')->from(20);
+        $this->assertEquals('20 Cats', $string);
+
+        $string = Pluralize::this('Cat');
+        $this->assertEquals('-', $string);
+    }
 }
