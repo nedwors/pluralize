@@ -1,6 +1,6 @@
 <?php
 
-namespace Nedwors\Pluralize\Pluralize\Utilities;
+namespace Nedwors\Pluralize\Utilities;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;

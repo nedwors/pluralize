@@ -1,6 +1,6 @@
 <?php
 
-namespace Nedwors\Pluralize\Pluralize\Utilities\Container;
+namespace Nedwors\Pluralize\Utilities\Container;
 
 class Container
 {

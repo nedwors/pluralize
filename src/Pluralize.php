@@ -1,11 +1,11 @@
 <?php
 
-namespace Nedwors\Pluralize\Pluralize;
+namespace Nedwors\Pluralize;
 
-use Nedwors\Pluralize\Pluralize\Utilities\Container\Container;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Nedwors\Pluralize\Pluralize\Utilities\Engine;
+use Nedwors\Pluralize\Utilities\Container\Container;
 use Illuminate\Contracts\Pagination\Paginator;
+use Nedwors\Pluralize\Utilities\Engine;
 use Illuminate\Support\Collection;
 use Stringable;
 use Closure;

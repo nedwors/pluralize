@@ -1,8 +1,8 @@
 <?php
 
-namespace Nedwors\Pluralize\Pluralize\Utilities;
+namespace Nedwors\Pluralize\Utilities;
 
-use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
+use Nedwors\Pluralize\Contracts\Pluralization;
 
 class Engine
 {

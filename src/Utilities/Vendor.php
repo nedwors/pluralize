@@ -1,8 +1,8 @@
 <?php
 
-namespace Nedwors\Pluralize\Pluralize\Utilities;
+namespace Nedwors\Pluralize\Utilities;
 
-use Nedwors\Pluralize\Pluralize\Utilities\Container\Bindings;
+use Nedwors\Pluralize\Utilities\Container\Bindings;
 
 abstract class Vendor
 {

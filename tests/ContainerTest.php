@@ -2,7 +2,7 @@
 
 namespace Nedwors\Pluralize\Tests;
 
-use Nedwors\Pluralize\Pluralize\Utilities\Container\Container;
+use Nedwors\Pluralize\Utilities\Container\Container;
 use Nedwors\Pluralize\PluralizeServiceProvider;
 use Orchestra\Testbench\TestCase;
 

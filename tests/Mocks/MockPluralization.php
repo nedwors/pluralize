@@ -2,7 +2,7 @@
 
 namespace Nedwors\Pluralize\Tests\Mocks;
 
-use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
+use Nedwors\Pluralize\Contracts\Pluralization;
 
 class MockPluralization implements Pluralization
 {
