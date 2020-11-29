@@ -2,13 +2,13 @@
 
 namespace Nedwors\Pluralize;
 
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Nedwors\Pluralize\Utilities\Container\Container;
-use Illuminate\Contracts\Pagination\Paginator;
-use Nedwors\Pluralize\Utilities\Engine;
-use Illuminate\Support\Collection;
-use Stringable;
 use Closure;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Nedwors\Pluralize\Utilities\Container\Container;
+use Nedwors\Pluralize\Utilities\Engine;
+use Stringable;
 
 class Pluralize implements Stringable
 {

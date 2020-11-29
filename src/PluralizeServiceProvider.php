@@ -2,15 +2,14 @@
 
 namespace Nedwors\Pluralize;
 
-use Nedwors\Pluralize\Utilities\Pluralization\LaravelStrPluralization;
-use Nedwors\Pluralize\Utilities\Container\ArrayBindings;
-use Nedwors\Pluralize\Utilities\Container\Container;
-use Nedwors\Pluralize\Utilities\Container\Bindings;
-use Nedwors\Pluralize\Utilities\Fallback;
 use Illuminate\Support\ServiceProvider;
+use Nedwors\Pluralize\Utilities\Container\ArrayBindings;
+use Nedwors\Pluralize\Utilities\Container\Bindings;
+use Nedwors\Pluralize\Utilities\Container\Container;
+use Nedwors\Pluralize\Utilities\Fallback;
 use Nedwors\Pluralize\Utilities\Output;
 use Nedwors\Pluralize\Utilities\Parser;
-use Nedwors\Pluralize\Pluralize;
+use Nedwors\Pluralize\Utilities\Pluralization\LaravelStrPluralization;
 
 class PluralizeServiceProvider extends ServiceProvider
 {

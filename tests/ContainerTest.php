@@ -2,8 +2,8 @@
 
 namespace Nedwors\Pluralize\Tests;
 
-use Nedwors\Pluralize\Utilities\Container\Container;
 use Nedwors\Pluralize\PluralizeServiceProvider;
+use Nedwors\Pluralize\Utilities\Container\Container;
 use Orchestra\Testbench\TestCase;
 
 class ContainerTest extends TestCase
