@@ -1,6 +1,6 @@
 <?php
 
-namespace Nedwors\Pluralize\Pluralize\Contracts;
+namespace Nedwors\Pluralize\Contracts;
 
 interface Pluralization
 {

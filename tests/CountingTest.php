@@ -4,7 +4,7 @@ namespace Nedwors\Pluralize\Tests;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
-use Nedwors\Pluralize\Pluralize\Pluralize;
+use Nedwors\Pluralize\Pluralize;
 use Nedwors\Pluralize\PluralizeServiceProvider;
 use Orchestra\Testbench\TestCase;
 

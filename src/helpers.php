@@ -1,6 +1,6 @@
 <?php
 
-use Nedwors\Pluralize\Pluralize\Pluralize;
+use Nedwors\Pluralize\Pluralize;
 
 if (! function_exists('pluralize')) {
     function pluralize(string $item, $countable = null, $or = null, $as = null): Pluralize

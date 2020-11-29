@@ -1,9 +1,9 @@
 <?php
 
-namespace Nedwors\Pluralize\Pluralize\Utilities\Pluralization;
+namespace Nedwors\Pluralize\Utilities\Pluralization;
 
 use Illuminate\Support\Str;
-use Nedwors\Pluralize\Pluralize\Contracts\Pluralization;
+use Nedwors\Pluralize\Contracts\Pluralization;
 
 class LaravelStrPluralization implements Pluralization
 {
