@@ -1,6 +1,7 @@
 # Pluralize - A Laravel string helper
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/nedwors/pluralize.svg?style=flat-square)](https://packagist.org/packages/nedwors/pluralize)
+[![Build Status](https://img.shields.io/travis/nedwors/pluralize/master.svg?style=flat-square)](https://travis-ci.org/nedwors/pluralize)
 
 A Laravel package that provides null-safe, meaningful pluralization of strings. 
 
