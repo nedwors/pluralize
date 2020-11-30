@@ -16,10 +16,10 @@ class Pluralizer implements Stringable
     }
 
     /**
-     * Begin the process with the singular form of the word desired
-     * 
-     * @param string $singular 
-     * @return Pluralizer 
+     * Begin the process with the singular form of the word desired.
+     *
+     * @param string $singular
+     * @return Pluralizer
      */
     public static function pluralize(string $singular): self
     {
@@ -30,7 +30,7 @@ class Pluralizer implements Stringable
     }
 
     /**
-     * Define what should be counted
+     * Define what should be counted.
      *
      * @param int|array|Collection|LengthAwarePaginator|Paginator $countable
      * @return Pluralizer
@@ -43,7 +43,7 @@ class Pluralizer implements Stringable
     }
 
     /**
-     * Define the format of the generated string
+     * Define the format of the generated string.
      *
      * @param string|Closure $output
      * @return Pluralizer
@@ -56,7 +56,7 @@ class Pluralizer implements Stringable
     }
 
     /**
-     * Define the format of the generated fallback string
+     * Define the format of the generated fallback string.
      *
      * @param string|Closure $fallback
      * @return Pluralizer
@@ -69,19 +69,20 @@ class Pluralizer implements Stringable
     }
 
     /**
-     * Declare the driver class to be used for producing plural strings
-     * 
-     * @param mixed $pluralizationDriver 
-     * @return Pluralizer 
+     * Declare the driver class to be used for producing plural strings.
+     *
+     * @param mixed $pluralizationDriver
+     * @return Pluralizer
      */
     public function using($pluralizationDriver): self
     {
         $this->pluralizationDriver = $pluralizationDriver;
+
         return $this;
     }
 
     /**
-     * Generate and return the string
+     * Generate and return the string.
      *
      * @return string
      */
