@@ -3,13 +3,11 @@
 namespace Nedwors\Pluralize;
 
 use Nedwors\Pluralize\Utilities\Container\Container;
-use Nedwors\Pluralize\Utilities\Engine;
 use Nedwors\Pluralize\Utilities\Pluralizer;
 
 class Pluralize
 {
     protected $pluralizationDriver;
-    protected Engine $engine;
 
     public function __construct($driver)
     {
