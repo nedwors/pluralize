@@ -93,6 +93,16 @@ class OutputTest extends TestCase
     }
 
     /** @test */
+    public function pipe_delimiting_features_are_available_to_strings_for_negative_one()
+    {
+        $string = Pluralize::this('Book')->from(1)->as(fn($plural, $count) => "There is|are $count $plural");
+        $this->assertEquals('There is 1 Book', $string);
+
+        $string = Pluralize::this('Book')->from(-1)->as(fn($plural, $count) => "There is|are $count $plural");
+        $this->assertEquals('There is -1 Book', $string);
+    }
+
+    /** @test */
     public function a_default_format_can_be_bound()
     {
         Pluralize::bind()->output(fn ($items, $count) =>  "There are $count $items");
