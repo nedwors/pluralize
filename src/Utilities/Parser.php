@@ -45,7 +45,12 @@ class Parser
 
     protected function getCorrectSegmentOfStringForCount($string)
     {
-        return $this->count == 1 ? Str::before($string, '|') : Str::after($string, '|');
+        return $this->countIsSingular() ? Str::before($string, '|') : Str::after($string, '|');
+    }
+
+    protected function countIsSingular(): bool
+    {
+        return $this->count == 1 || $this->count == -1;
     }
 
     protected function replaceValue($string, $item)
