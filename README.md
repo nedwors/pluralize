@@ -1,9 +1,9 @@
 # Pluralize - A Laravel string helper
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/nedwors/pluralize.svg?style=flat-square)](https://packagist.org/packages/nedwors/pluralize)
-[![Build Status](https://img.shields.io/travis/nedwors/pluralize/master.svg?style=flat-square)](https://travis-ci.org/nedwors/pluralize)
+![Tests](https://github.com/nedwors/pluralize/workflows/Tests/badge.svg)
 
-A Laravel package that provides null-safe, meaningful pluralization of strings. 
+A Laravel package that provides null-safe, meaningful pluralization of strings.
 
 Go from this...
 
@@ -68,7 +68,7 @@ You can install the package via composer
 composer require nedwors/pluralize
 ```
 ### Setup
-Minimal, if any, setup is required. The package is ready to work out of the box with sensible defaults. 
+Minimal, if any, setup is required. The package is ready to work out of the box with sensible defaults.
 
 The defaults are shown below. The 1st comment represents the returned string when `$pizzas` has a count of 10; the 2nd represents when `$pizzas` is null:
 
@@ -94,7 +94,7 @@ Pluralize::this('Dog')->from($dogs)->or('...')
 ```
 
 ### Usage
-The underlying class in the package implements the `Stringable` interface, so in your Blade views it works just by calling the helper function or class. 
+The underlying class in the package implements the `Stringable` interface, so in your Blade views it works just by calling the helper function or class.
 ```php
 pluralize('Dog', $dogs)
 ```
@@ -155,9 +155,9 @@ pluralize('Rocket', $rockets)
 
 pluralize('Rocket')->from($rockets)
 ```
-   
+
 > By this point, it's worth noting that you are good to go. Nothing more  is required for most uses.
-> 
+>
 > Pluralize does provide extra features for more flexibility. These are detailed below, as well as [configuration](#configuration).
 
 ### Or
