@@ -8,26 +8,50 @@ use Nedwors\Pluralize\Pluralize;
 
 class CountingTest extends TestCase
 {
-    /** @test */
-    public function zero_is_counted_correctly()
+    /**
+     * @dataProvider integersDataProvider
+     * @test
+     */
+    public function it_can_count_from_integers(int $integer, string $output)
     {
-        $this->assertEquals('0 Books', Pluralize::this('Book')->from(0));
+        $pluralized = Pluralize::this('Book')->from($integer)->__toString();
+
+        $this->assertEquals($output, $pluralized);
     }
 
-    /** @test */
-    public function it_can_count_from_integers()
+    public function integersDataProvider()
     {
-        $count = rand(2, 100);
-
-        $this->assertEquals("$count Books", Pluralize::this('Book')->from($count));
+        return [
+            [0, '0 Books'],
+            [1, '1 Book'],
+            [2, '2 Books'],
+            [-1, '-1 Book'],
+            [-2, '-2 Books'],
+        ];
     }
 
-    /** @test */
-    public function negative_numbers_will_be_counted()
+    /**
+     * @dataProvider floatsDataProvider
+     * @test
+     */
+    public function it_can_count_from_floats(float $float, string $output)
     {
-        $this->assertEquals('-1 Book', Pluralize::this('Book')->from(-1));
+        $pluralized = Pluralize::this('Book')->from($float)->__toString();
 
-        $this->assertEquals('-2 Books', Pluralize::this('Book')->from(-2));
+        $this->assertEquals($output, $pluralized);
+    }
+
+    public function floatsDataProvider()
+    {
+        return [
+            [0.0, '0 Books'],
+            [0.1, '0.1 Books'],
+            [1.0, '1 Book'],
+            [1.5, '1.5 Book'],
+            [2.2, '2.2 Books'],
+            [-1.75, '-1.75 Book'],
+            [-2.3, '-2.3 Books'],
+        ];
     }
 
     /** @test */

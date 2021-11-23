@@ -1,7 +1,4 @@
 # Changelog
 
-All notable changes to `pluralize` will be documented in this file
-
-## 1.0.0 - 201X-XX-XX
-
-- initial release
+## 2.0.1
+- Fixes bug where floats would not be counted.
