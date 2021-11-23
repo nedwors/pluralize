@@ -5,36 +5,53 @@ namespace Nedwors\Pluralize\Tests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Nedwors\Pluralize\Pluralize;
-use Nedwors\Pluralize\PluralizeServiceProvider;
-use Orchestra\Testbench\TestCase;
 
 class CountingTest extends TestCase
 {
-    protected function getPackageProviders($app)
+    /**
+     * @dataProvider integersDataProvider
+     * @test
+     */
+    public function it_can_count_from_integers(int $integer, string $output)
     {
-        return [PluralizeServiceProvider::class];
+        $pluralized = Pluralize::this('Book')->from($integer)->__toString();
+
+        $this->assertEquals($output, $pluralized);
     }
 
-    /** @test */
-    public function zero_is_counted_correctly()
+    public function integersDataProvider()
     {
-        $this->assertEquals('0 Books', Pluralize::this('Book')->from(0));
+        return [
+            [0, '0 Books'],
+            [1, '1 Book'],
+            [2, '2 Books'],
+            [-1, '-1 Book'],
+            [-2, '-2 Books'],
+        ];
     }
 
-    /** @test */
-    public function it_can_count_from_integers()
+    /**
+     * @dataProvider floatsDataProvider
+     * @test
+     */
+    public function it_can_count_from_floats(float $float, string $output)
     {
-        $count = rand(2, 100);
+        $pluralized = Pluralize::this('Book')->from($float)->__toString();
 
-        $this->assertEquals("$count Books", Pluralize::this('Book')->from($count));
+        $this->assertEquals($output, $pluralized);
     }
 
-    /** @test */
-    public function negative_numbers_will_be_counted()
+    public function floatsDataProvider()
     {
-        $this->assertEquals('-1 Book', Pluralize::this('Book')->from(-1));
-
-        $this->assertEquals('-2 Books', Pluralize::this('Book')->from(-2));
+        return [
+            [0.0, '0 Books'],
+            [0.1, '0.1 Books'],
+            [1.0, '1 Book'],
+            [1.5, '1.5 Book'],
+            [2.2, '2.2 Books'],
+            [-1.75, '-1.75 Book'],
+            [-2.3, '-2.3 Books'],
+        ];
     }
 
     /** @test */

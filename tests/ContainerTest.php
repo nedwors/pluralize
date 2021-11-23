@@ -2,17 +2,10 @@
 
 namespace Nedwors\Pluralize\Tests;
 
-use Nedwors\Pluralize\PluralizeServiceProvider;
 use Nedwors\Pluralize\Utilities\Container\Container;
-use Orchestra\Testbench\TestCase;
 
 class ContainerTest extends TestCase
 {
-    protected function getPackageProviders($app)
-    {
-        return [PluralizeServiceProvider::class];
-    }
-
     /** @test */
     public function a_binding_can_be_bound_as_an_output()
     {

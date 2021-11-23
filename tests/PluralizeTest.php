@@ -3,16 +3,9 @@
 namespace Nedwors\Pluralize\Tests;
 
 use Nedwors\Pluralize\Pluralize;
-use Nedwors\Pluralize\PluralizeServiceProvider;
-use Orchestra\Testbench\TestCase;
 
 class PluralizeTest extends TestCase
 {
-    protected function getPackageProviders($app)
-    {
-        return [PluralizeServiceProvider::class];
-    }
-
     /** @test */
     public function it_will_pluralize_a_string_according_to_the_items_passed()
     {

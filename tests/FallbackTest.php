@@ -3,16 +3,9 @@
 namespace Nedwors\Pluralize\Tests;
 
 use Nedwors\Pluralize\Pluralize;
-use Nedwors\Pluralize\PluralizeServiceProvider;
-use Orchestra\Testbench\TestCase;
 
 class FallbackTest extends TestCase
 {
-    protected function getPackageProviders($app)
-    {
-        return [PluralizeServiceProvider::class];
-    }
-
     /** @test */
     public function if_a_fallback_is_provided_this_is_used_if_the_count_is_null()
     {

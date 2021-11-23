@@ -3,16 +3,9 @@
 namespace Nedwors\Pluralize\Tests;
 
 use Nedwors\Pluralize\Pluralize;
-use Nedwors\Pluralize\PluralizeServiceProvider;
-use Orchestra\Testbench\TestCase;
 
 class HelperTest extends TestCase
 {
-    protected function getPackageProviders($app)
-    {
-        return [PluralizeServiceProvider::class];
-    }
-
     /** @test */
     public function an_item_and_a_count_can_be_passed()
     {

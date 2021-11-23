@@ -3,16 +3,9 @@
 namespace Nedwors\Pluralize\Tests;
 
 use Nedwors\Pluralize\Pluralize;
-use Nedwors\Pluralize\PluralizeServiceProvider;
-use Orchestra\Testbench\TestCase;
 
 class BindingTest extends TestCase
 {
-    protected function getPackageProviders($app)
-    {
-        return [PluralizeServiceProvider::class];
-    }
-
     /** @test */
     public function a_default_fallback_can_be_bound_by_calling_bind_with_no_arguments()
     {
