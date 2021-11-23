@@ -3,16 +3,9 @@
 namespace Nedwors\Pluralize\Tests;
 
 use Nedwors\Pluralize\Pluralize;
-use Nedwors\Pluralize\PluralizeServiceProvider;
-use Orchestra\Testbench\TestCase;
 
 class OutputTest extends TestCase
 {
-    protected function getPackageProviders($app)
-    {
-        return [PluralizeServiceProvider::class];
-    }
-
     /** @test */
     public function the_output_of_the_pluralization_can_be_defined()
     {
