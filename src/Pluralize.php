@@ -17,7 +17,8 @@ class Pluralize
     /**
      * Set the class name of the desired Pluralization driver.
      *
-     * @param  string  $driver
+     * @param string $driver
+     *
      * @return Pluralize
      */
     public static function driver($driver): self
@@ -31,7 +32,8 @@ class Pluralize
     /**
      * Begin to bind into the engine's container.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return Container
      */
     public static function bind($key = null): Container
@@ -42,7 +44,8 @@ class Pluralize
     /**
      * Define the singular form of the word to be pluralized.
      *
-     * @param  string  $item
+     * @param string $item
+     *
      * @return Pluralizer
      */
     public static function this(string $singular): Pluralizer
