@@ -18,7 +18,8 @@ class Pluralizer implements Stringable
     /**
      * Begin the process with the singular form of the word desired.
      *
-     * @param  string  $singular
+     * @param string $singular
+     *
      * @return Pluralizer
      */
     public static function pluralize(string $singular): self
@@ -32,7 +33,8 @@ class Pluralizer implements Stringable
     /**
      * Define what should be counted.
      *
-     * @param  int|array|Collection|LengthAwarePaginator|Paginator  $countable
+     * @param int|array|Collection|LengthAwarePaginator|Paginator $countable
+     *
      * @return Pluralizer
      */
     public function from($countable): self
@@ -45,7 +47,8 @@ class Pluralizer implements Stringable
     /**
      * Define the format of the generated string.
      *
-     * @param  string|Closure  $output
+     * @param string|Closure $output
+     *
      * @return Pluralizer
      */
     public function as($output): self
@@ -58,7 +61,8 @@ class Pluralizer implements Stringable
     /**
      * Define the format of the generated fallback string.
      *
-     * @param  string|Closure  $fallback
+     * @param string|Closure $fallback
+     *
      * @return Pluralizer
      */
     public function or($fallback): self
@@ -71,7 +75,8 @@ class Pluralizer implements Stringable
     /**
      * Declare the driver class to be used for producing plural strings.
      *
-     * @param  mixed  $pluralizationDriver
+     * @param mixed $pluralizationDriver
+     *
      * @return Pluralizer
      */
     public function using($pluralizationDriver): self
