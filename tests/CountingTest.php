@@ -10,6 +10,7 @@ class CountingTest extends TestCase
 {
     /**
      * @dataProvider integersDataProvider
+     *
      * @test
      */
     public function it_can_count_from_integers(int $integer, string $output)
@@ -32,6 +33,7 @@ class CountingTest extends TestCase
 
     /**
      * @dataProvider floatsDataProvider
+     *
      * @test
      */
     public function it_can_count_from_floats(float $float, string $output)
