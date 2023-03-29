@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0
+- Adds support for Laravel 10
+- Adds support for PHP 8.2
+
 ## 3.0.1
 - Adds support for Laravel 9 - all versions above 9.0
 
