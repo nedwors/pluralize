@@ -68,20 +68,20 @@ class HelperTest extends TestCase
     public function complex_calls_render_accurately()
     {
         $string = pluralize('Test', null, fn ($items) => "You don't have any $items", 'This is the output')
-                    ->as(fn ($items, $count) => "$count $items")
-                    ->or('Whoops');
+            ->as(fn ($items, $count) => "$count $items")
+            ->or('Whoops');
 
         $this->assertEquals('Whoops', $string);
 
         $string = pluralize('Test', 10, fn ($items) => "You don't have any $items")
-                    ->as(fn ($items, $count) => "$count $items")
-                    ->or('Whoops');
+            ->as(fn ($items, $count) => "$count $items")
+            ->or('Whoops');
 
         $this->assertEquals('10 Tests', $string);
 
         $string = pluralize('Test', 10, fn ($items) => "You don't have any $items", fn ($string, $count) => "$count $string")
-                    ->as(fn () => 'This is a pointless output')
-                    ->or('Whoops');
+            ->as(fn () => 'This is a pointless output')
+            ->or('Whoops');
 
         $this->assertEquals('This is a pointless output', $string);
     }

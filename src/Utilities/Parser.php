@@ -7,7 +7,9 @@ use Illuminate\Support\Str;
 class Parser
 {
     protected $regexPattern = "/(\S+)\|(\S+)/i";
+
     protected $string;
+
     protected $count;
 
     public function run($string, $count)
@@ -28,14 +30,14 @@ class Parser
     protected function modifyString($matches)
     {
         return collect($this->pairReplacementsWithMatches($matches))
-                ->reduce(fn ($carry, $item) => $this->replaceValue($carry, $item), $this->string);
+            ->reduce(fn ($carry, $item) => $this->replaceValue($carry, $item), $this->string);
     }
 
     protected function pairReplacementsWithMatches($matches)
     {
         return collect($matches)
-                ->map(fn ($match) => Str::replaceFirst('|', '\|', $match))
-                ->zip($this->getReplacements($matches));
+            ->map(fn ($match) => Str::replaceFirst('|', '\|', $match))
+            ->zip($this->getReplacements($matches));
     }
 
     protected function getReplacements($matches)

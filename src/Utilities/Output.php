@@ -7,6 +7,7 @@ use Nedwors\Pluralize\Utilities\Container\Bindings;
 class Output extends Vendor
 {
     protected Bindings $bindings;
+
     protected Parser $parser;
 
     public function __construct(Bindings $bindings, Parser $parser)

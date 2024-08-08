@@ -28,8 +28,8 @@ class BindingTest extends TestCase
     public function a_default_output_and_fallback_can_be_bound_at_the_same_time()
     {
         Pluralize::bind()
-                    ->output('You have some items')
-                    ->fallback('Oops!');
+            ->output('You have some items')
+            ->fallback('Oops!');
 
         $string = Pluralize::this('Book')->from(1);
         $this->assertEquals('You have some items', $string);

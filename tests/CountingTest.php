@@ -10,6 +10,7 @@ class CountingTest extends TestCase
 {
     /**
      * @dataProvider integersDataProvider
+     *
      * @test
      */
     public function it_can_count_from_integers(int $integer, string $output)
@@ -19,7 +20,7 @@ class CountingTest extends TestCase
         $this->assertEquals($output, $pluralized);
     }
 
-    public function integersDataProvider()
+    public static function integersDataProvider()
     {
         return [
             [0, '0 Books'],
@@ -32,6 +33,7 @@ class CountingTest extends TestCase
 
     /**
      * @dataProvider floatsDataProvider
+     *
      * @test
      */
     public function it_can_count_from_floats(float $float, string $output)
@@ -41,7 +43,7 @@ class CountingTest extends TestCase
         $this->assertEquals($output, $pluralized);
     }
 
-    public function floatsDataProvider()
+    public static function floatsDataProvider()
     {
         return [
             [0.0, '0 Books'],
