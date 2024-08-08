@@ -7,10 +7,7 @@ interface Pluralization
     /**
      * Pluralizes the given singular string based on the count.
      *
-     * @param string $string
-     * @param mixed  $count
-     *
-     * @return string
+     * @param  mixed  $count
      */
     public function run(string $string, $count): string;
 }

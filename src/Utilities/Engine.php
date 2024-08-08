@@ -7,7 +7,9 @@ use Nedwors\Pluralize\Contracts\Pluralization;
 class Engine
 {
     protected Counter $counter;
+
     protected Fallback $fallback;
+
     protected Output $output;
 
     public function __construct(Counter $counter, Fallback $fallback, Output $output)

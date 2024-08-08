@@ -98,7 +98,7 @@ class OutputTest extends TestCase
     /** @test */
     public function a_default_format_can_be_bound()
     {
-        Pluralize::bind()->output(fn ($items, $count) =>  "There are $count $items");
+        Pluralize::bind()->output(fn ($items, $count) => "There are $count $items");
 
         $string = Pluralize::this('Book')->from(10);
         $this->assertEquals('There are 10 Books', $string);
@@ -107,7 +107,7 @@ class OutputTest extends TestCase
     /** @test */
     public function a_default_format_is_overriden_by_the_declared_output()
     {
-        Pluralize::bind()->output(fn ($items, $count) =>  "There are $count $items");
+        Pluralize::bind()->output(fn ($items, $count) => "There are $count $items");
 
         $string = Pluralize::this('Book')->from(10)->as(fn ($items, $count) => "$items - $count");
         $this->assertEquals('Books - 10', $string);

@@ -20,7 +20,7 @@ class CountingTest extends TestCase
         $this->assertEquals($output, $pluralized);
     }
 
-    public function integersDataProvider()
+    public static function integersDataProvider()
     {
         return [
             [0, '0 Books'],
@@ -43,7 +43,7 @@ class CountingTest extends TestCase
         $this->assertEquals($output, $pluralized);
     }
 
-    public function floatsDataProvider()
+    public static function floatsDataProvider()
     {
         return [
             [0.0, '0 Books'],

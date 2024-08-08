@@ -5,7 +5,9 @@ namespace Nedwors\Pluralize\Utilities\Container;
 class Container
 {
     public Bindings $outputs;
+
     public Bindings $fallbacks;
+
     protected $key = null;
 
     public function __construct(Bindings $outputs, Bindings $fallbacks)

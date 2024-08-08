@@ -7,7 +7,9 @@ use Stringable;
 class Pluralizer implements Stringable
 {
     protected Engine $engine;
+
     protected string $singular;
+
     protected $pluralizationDriver;
 
     public function __construct(Engine $engine)
@@ -17,10 +19,6 @@ class Pluralizer implements Stringable
 
     /**
      * Begin the process with the singular form of the word desired.
-     *
-     * @param string $singular
-     *
-     * @return Pluralizer
      */
     public static function pluralize(string $singular): self
     {
@@ -33,9 +31,7 @@ class Pluralizer implements Stringable
     /**
      * Define what should be counted.
      *
-     * @param int|array|Collection|LengthAwarePaginator|Paginator $countable
-     *
-     * @return Pluralizer
+     * @param  int|array|Collection|LengthAwarePaginator|Paginator  $countable
      */
     public function from($countable): self
     {
@@ -47,9 +43,7 @@ class Pluralizer implements Stringable
     /**
      * Define the format of the generated string.
      *
-     * @param string|Closure $output
-     *
-     * @return Pluralizer
+     * @param  string|Closure  $output
      */
     public function as($output): self
     {
@@ -61,9 +55,7 @@ class Pluralizer implements Stringable
     /**
      * Define the format of the generated fallback string.
      *
-     * @param string|Closure $fallback
-     *
-     * @return Pluralizer
+     * @param  string|Closure  $fallback
      */
     public function or($fallback): self
     {
@@ -75,9 +67,7 @@ class Pluralizer implements Stringable
     /**
      * Declare the driver class to be used for producing plural strings.
      *
-     * @param mixed $pluralizationDriver
-     *
-     * @return Pluralizer
+     * @param  mixed  $pluralizationDriver
      */
     public function using($pluralizationDriver): self
     {
@@ -114,7 +104,7 @@ class Pluralizer implements Stringable
     protected function pluralized()
     {
         return $this->engine->pluralization($this->pluralizationDriver)
-                            ->run($this->singular, $this->engine->counter()->count);
+            ->run($this->singular, $this->engine->counter()->count);
     }
 
     public function __invoke()
