@@ -1,4 +1,15 @@
 # Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [4.0.0] - 2024-08-08
+### Added
+- Added support for Laravel 11 and PHP 8.2 [#24](https://github.com/nedwors/pluralize/pull/24)
+
+### Removed
+- Removed support for < Laravel 11, < PHP 8.2 [#24](https://github.com/nedwors/pluralize/pull/24)
 
 ## 3.1.0
 - Adds support for Laravel 10
