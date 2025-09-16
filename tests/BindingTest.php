@@ -3,10 +3,11 @@
 namespace Nedwors\Pluralize\Tests;
 
 use Nedwors\Pluralize\Pluralize;
+use PHPUnit\Framework\Attributes\Test;
 
 class BindingTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function a_default_fallback_can_be_bound_by_calling_bind_with_no_arguments()
     {
         Pluralize::bind()->fallback('Oops!');
@@ -15,7 +16,7 @@ class BindingTest extends TestCase
         $this->assertEquals('Oops!', $string);
     }
 
-    /** @test */
+    #[Test]
     public function a_default_output_can_be_bound_by_calling_bind_with_no_arguments()
     {
         Pluralize::bind()->output('You have some items');
@@ -24,7 +25,7 @@ class BindingTest extends TestCase
         $this->assertEquals('You have some items', $string);
     }
 
-    /** @test */
+    #[Test]
     public function a_default_output_and_fallback_can_be_bound_at_the_same_time()
     {
         Pluralize::bind()
@@ -38,7 +39,7 @@ class BindingTest extends TestCase
         $this->assertEquals('Oops!', $string);
     }
 
-    /** @test */
+    #[Test]
     public function a_closure_can_be_bound_for_a_fallback()
     {
         Pluralize::bind()->fallback(fn () => 'Oops!');
@@ -47,7 +48,7 @@ class BindingTest extends TestCase
         $this->assertEquals('Oops!', $string);
     }
 
-    /** @test */
+    #[Test]
     public function a_closure_can_be_bound_for_an_output()
     {
         Pluralize::bind()->output(fn ($plural, $count) => "Currently, $count $plural");
@@ -56,7 +57,7 @@ class BindingTest extends TestCase
         $this->assertEquals('Currently, 10 Books', $string);
     }
 
-    /** @test */
+    #[Test]
     public function a_default_fallback_binding_can_be_bound_following_a_specific_binding()
     {
         Pluralize::bind('test')->fallback('A test fallback');
@@ -69,7 +70,7 @@ class BindingTest extends TestCase
         $this->assertEquals('A test fallback', $string);
     }
 
-    /** @test */
+    #[Test]
     public function a_default_output_binding_can_be_bound_following_a_specific_binding()
     {
         Pluralize::bind('test')->output('A test output');

@@ -3,10 +3,11 @@
 namespace Nedwors\Pluralize\Tests;
 
 use Nedwors\Pluralize\Pluralize;
+use PHPUnit\Framework\Attributes\Test;
 
 class OutputTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function the_output_of_the_pluralization_can_be_defined()
     {
         $string = Pluralize::this('Book')->from(15)->as(fn ($items, $count) => "You have $count $items");
@@ -16,7 +17,7 @@ class OutputTest extends TestCase
         $this->assertEquals('Yay, 15 Books', $string);
     }
 
-    /** @test */
+    #[Test]
     public function singular_and_plural_variations_can_be_set_in_the_string_with_a_pipe_operator()
     {
         $string = Pluralize::this('Book')->from(1)->as(fn ($items, $count) => "There is|are $count $items");
@@ -26,7 +27,7 @@ class OutputTest extends TestCase
         $this->assertEquals('There are 2 Books', $string);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_handle_multiple_variations()
     {
         $string = Pluralize::this('Book')->from(1)->as(fn ($items, $count) => "There is|are $count $items, as there is|are $count $items");
@@ -36,7 +37,7 @@ class OutputTest extends TestCase
         $this->assertEquals('There are 3 Books, as there are 3 Books', $string);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_handle_different_delimited_strings()
     {
         $string = Pluralize::this('Book')->from(1)->as(fn () => 'Why|What would|do you do|want this');
@@ -49,7 +50,7 @@ class OutputTest extends TestCase
         $this->assertEquals('What do you want friend', $string);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_handle_pipe_delimited_numbers()
     {
         $string = Pluralize::this('Book')->from(1)->as(fn ($items, $count) => "Show me the $count|$items");
@@ -65,7 +66,7 @@ class OutputTest extends TestCase
         $this->assertEquals('007', $string);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_handle_pipe_delimited_synbols()
     {
         $string = Pluralize::this('Book')->from(1)->as(fn () => '&!|!-');
@@ -75,7 +76,7 @@ class OutputTest extends TestCase
         $this->assertEquals('!-', $string);
     }
 
-    /** @test */
+    #[Test]
     public function pipe_delimiting_features_are_available_to_strings()
     {
         $string = Pluralize::this('Book')->from(1)->as('Show me the prizes|money');
@@ -85,7 +86,7 @@ class OutputTest extends TestCase
         $this->assertEquals('Show me the money', $string);
     }
 
-    /** @test */
+    #[Test]
     public function pipe_delimiting_features_are_available_to_strings_for_negative_one()
     {
         $string = Pluralize::this('Book')->from(1)->as(fn ($plural, $count) => "There is|are $count $plural");
@@ -95,7 +96,7 @@ class OutputTest extends TestCase
         $this->assertEquals('There is -1 Book', $string);
     }
 
-    /** @test */
+    #[Test]
     public function a_default_format_can_be_bound()
     {
         Pluralize::bind()->output(fn ($items, $count) => "There are $count $items");
@@ -104,7 +105,7 @@ class OutputTest extends TestCase
         $this->assertEquals('There are 10 Books', $string);
     }
 
-    /** @test */
+    #[Test]
     public function a_default_format_is_overriden_by_the_declared_output()
     {
         Pluralize::bind()->output(fn ($items, $count) => "There are $count $items");
@@ -113,7 +114,7 @@ class OutputTest extends TestCase
         $this->assertEquals('Books - 10', $string);
     }
 
-    /** @test */
+    #[Test]
     public function a_default_output_can_be_bound_to_the_singular_form_of_the_word_passed()
     {
         Pluralize::bind('Pizza')->output('Luke has some pizzas!');

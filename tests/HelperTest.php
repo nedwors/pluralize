@@ -3,10 +3,11 @@
 namespace Nedwors\Pluralize\Tests;
 
 use Nedwors\Pluralize\Pluralize;
+use PHPUnit\Framework\Attributes\Test;
 
 class HelperTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function an_item_and_a_count_can_be_passed()
     {
         $count = rand(2, 100);
@@ -15,7 +16,7 @@ class HelperTest extends TestCase
         $this->assertEquals("$count Computers", $string);
     }
 
-    /** @test */
+    #[Test]
     public function the_second_call_to_from_will_set_the_count()
     {
         $count = rand(2, 100);
@@ -24,7 +25,7 @@ class HelperTest extends TestCase
         $this->assertEquals("$count Computers", $string);
     }
 
-    /** @test */
+    #[Test]
     public function a_third_paramater_can_be_passed_as_the_fallback()
     {
         $string = pluralize('Computer', null, 'Oops!');
@@ -32,7 +33,7 @@ class HelperTest extends TestCase
         $this->assertEquals('Oops!', $string);
     }
 
-    /** @test */
+    #[Test]
     public function the_last_fallback_is_used()
     {
         $string = pluralize('Computer', null, 'Oops!')->or('Woah there');
@@ -40,7 +41,7 @@ class HelperTest extends TestCase
         $this->assertEquals('Woah there', $string);
     }
 
-    /** @test */
+    #[Test]
     public function a_fourth_parameter_can_be_passed_to_define_the_display_form()
     {
         $string = pluralize('Computer', 10, 'Oops!', fn ($items, $count) => "There are $count $items");
@@ -48,7 +49,7 @@ class HelperTest extends TestCase
         $this->assertEquals('There are 10 Computers', $string);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_be_accessed_purely_fluently()
     {
         $string = pluralize('Number')->from(0)->or('Oops');
@@ -64,7 +65,7 @@ class HelperTest extends TestCase
         $this->assertEquals('100 Numbers', $string);
     }
 
-    /** @test */
+    #[Test]
     public function complex_calls_render_accurately()
     {
         $string = pluralize('Test', null, fn ($items) => "You don't have any $items", 'This is the output')
@@ -86,7 +87,7 @@ class HelperTest extends TestCase
         $this->assertEquals('This is a pointless output', $string);
     }
 
-    /** @test */
+    #[Test]
     public function fallback_bindings_can_be_used()
     {
         Pluralize::bind()->fallback('-');

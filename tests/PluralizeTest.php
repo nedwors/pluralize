@@ -3,10 +3,11 @@
 namespace Nedwors\Pluralize\Tests;
 
 use Nedwors\Pluralize\Pluralize;
+use PHPUnit\Framework\Attributes\Test;
 
 class PluralizeTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_will_pluralize_a_string_according_to_the_items_passed()
     {
         $string = Pluralize::this('Book')->from(2);
@@ -14,7 +15,7 @@ class PluralizeTest extends TestCase
         $this->assertEquals('2 Books', $string);
     }
 
-    /** @test */
+    #[Test]
     public function it_will_handle_no_count_being_passed()
     {
         $string = Pluralize::this('Method');
@@ -22,7 +23,7 @@ class PluralizeTest extends TestCase
         $this->assertEquals('-', $string);
     }
 
-    /** @test */
+    #[Test]
     public function multiple_instances_can_be_generated_in_any_order()
     {
         $cats = Pluralize::this('Cat')->from(10);

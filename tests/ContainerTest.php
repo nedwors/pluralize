@@ -3,10 +3,11 @@
 namespace Nedwors\Pluralize\Tests;
 
 use Nedwors\Pluralize\Utilities\Container\Container;
+use PHPUnit\Framework\Attributes\Test;
 
 class ContainerTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function a_binding_can_be_bound_as_an_output()
     {
         $container = app(Container::class);
@@ -17,7 +18,7 @@ class ContainerTest extends TestCase
         $this->assertEquals('Hello', $container->outputs->get('Book'));
     }
 
-    /** @test */
+    #[Test]
     public function a_binding_can_be_bound_as_a_fallback()
     {
         $container = app(Container::class);
@@ -28,7 +29,7 @@ class ContainerTest extends TestCase
         $this->assertEquals('Hello', $container->fallbacks->get('Book'));
     }
 
-    /** @test */
+    #[Test]
     public function the_same_key_can_be_fluently_bound()
     {
         $container = app(Container::class);
