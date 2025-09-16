@@ -7,6 +7,8 @@ use Nedwors\Pluralize\Utilities\Pluralizer;
 
 class Pluralize
 {
+    public const VERSION = '5.0.0';
+
     protected $pluralizationDriver;
 
     public function __construct($driver)
